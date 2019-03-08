@@ -1,0 +1,6 @@
+branch_SM :
+branch_OS :
+branch_JS :
+branch_EG :
+각자 브랜치 만들고 저뒤에 내용 추가하고
+브랜치 병합하기
