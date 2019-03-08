@@ -1,4 +1,4 @@
-branch_SM :
+branch_SM : 현재 브랜치를 만들었다.
 branch_OS :
 branch_JS :
 branch_EG :
