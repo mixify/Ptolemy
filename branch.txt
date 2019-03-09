@@ -1,7 +1,11 @@
 branch_SM : 현재 브랜치를 만들었다.
 branch_OS :
+<<<<<<< HEAD
 branch_JS :
 <<<<<<< HEAD
+=======
+branch_JS : 브랜치 만들었따.
+>>>>>>> 09c9806ac1e8718e62712a4c66838fe8050e8390
 branch_EG : 브랜치 만들어 버렸다...
 =======
 branch_EG : 생성생성생성
