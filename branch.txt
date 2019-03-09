@@ -1,6 +1,6 @@
 branch_SM : 현재 브랜치를 만들었다.
 branch_OS :
 branch_JS :
-branch_EG :
+branch_EG : 브랜치 만들어 버렸다...
 각자 브랜치 만들고 저뒤에 내용 추가하고
 브랜치 병합하기
