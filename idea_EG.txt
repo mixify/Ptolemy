@@ -1,0 +1,18 @@
+이미지로 부터 특징을 분석 및 학습하여 분류하여 주는 프로그램
+
+현존하는 이미지 분석 기술은 다음과 같다.
+
+기능 1 : 이미지에 담긴 사물, 물체, 인물 분석 기능
+https://m.blog.naver.com/PostView.nhn?blogId=acornedu&logNo=221061143899&categoryNo=1&proxyReferer=https%3A%2F%2Fwww.google.com%2F
+
+기능 2 : 이미지에 담긴 특징 분류 기능
+http://solarisailab.com/archives/2325
+
+기능 3 : 비슷한 이미지 탐색 기능
+https://inyl.github.io/programming/2017/08/11/cnn_image_search.html
+
+
+프로그램에 추가하고자 하는 기능은 다음과 같다.
+
+추가 기능 1 : 유명인이 아닌 인물의 정면, 측면 사진을 이름과 함께 데이터로 주면 해당 인물이 포함된 사진을 검색 가능하도록 한다.
+추가 기능 2 : 여행지 사진을 데이터로 주었을 때 해당 여행지의 위치 정보를 얻을 수 있도록 한다.
