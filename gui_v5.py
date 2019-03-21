@@ -2,8 +2,7 @@
 # coding: utf-8
 
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton, QHBoxLayout, QVBoxLayout, QAction, qApp
-from PyQt5.QtGui import QFont,QIcon
+from PyQt5 import QtCore, QtGui, QtWidgets
 from tkinter import *
 import tkinter.messagebox
 
@@ -64,7 +63,7 @@ class MyApp:
 
 if __name__ == '__main__':
 
-    app = QApplication(sys.argv)
+#    app = QApplication(sys.argv)
     ex = MyApp()
     sys.exit(app.exec_())
 
