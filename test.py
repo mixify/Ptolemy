@@ -1,36 +1,20 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QWidget
 
 
 class ui_mainwindow(object):
 
     def setup_ui(self, mainwindow):
+
         mainwindow.setObjectName("mainwindow")
         mainwindow.resize(500, 400)
+        
+        
         self.centralwidget = QtWidgets.QWidget(mainwindow)
         self.centralwidget.setObjectName("centralwidget")
         
-        """
-        self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(30, 240, 731, 301))
-        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
-        self.verticalLayout.setContentsMargins(300, 200, 10, 10)
-        self.verticalLayout.setObjectName("verticalLayout")
-        self.h_layout = QtWidgets.QHBoxLayout()
-        self.h_layout.setObjectName("h_layout")        
-        self.add_button = QtWidgets.QPushButton(self.verticalLayoutWidget)
-        self.add_button.setObjectName("add_button")
-        #self.verticalLayout.addWidget(self.add_button)
-        self.h_layout.addWidget(self.add_button)
-        self.select_button = QtWidgets.QPushButton(self.verticalLayoutWidget)
-        self.select_button.setObjectName("select_button")
-        self.h_layout.addWidget(self.select_button)
-        self.delete_button = QtWidgets.QPushButton(self.verticalLayoutWidget)
-        self.delete_button.setObjectName("delete_button")
-        self.h_layout.addWidget(self.delete_button)
-        self.verticalLayout.addLayout(self.h_layout)
-        """
-        
+
+
         ## layout
         self.h_layout_widget = QtWidgets.QWidget(self.centralwidget)
         self.h_layout_widget.setGeometry(QtCore.QRect(10, 10, 450, 350))
@@ -45,9 +29,11 @@ class ui_mainwindow(object):
         self.v_layout_1.setObjectName("v_layout_1")
         self.v_layout_2.setObjectName("v_layout_2")        
 
+
+        
         #listview
-        self.list = QtWidgets.QListView(self.v_layout_1)
-        self.list.resize(400,300)
+        #self.list = QtWidgets.QListView(mainwindow)
+        #self.list.resize(400,300)
         #self.model = QtWidget.QstandardItem()
         
         #self.h_layout.addWidget(self.list)
@@ -56,22 +42,24 @@ class ui_mainwindow(object):
 
         ##button
 
-        self.add_button = QtWidgets.QPushButton(self.h_layout_widget)
+        self.add_button = QtWidgets.QPushButton(mainwindow)
         self.add_button.setObjectName("add_button")
-        self.add_button.move(200,10)
-        self.add_button.resize(10,30)
+        #self.add_button.move(200,10)
+        #self.add_button.resize(10,30)
         #self.v_layout.
 
         #self.verticalLayout.addWidget(self.add_button)
-        self.v_layout.addWidget(self.add_button)
+        self.v_layout_2.addWidget(self.add_button)
         self.select_button = QtWidgets.QPushButton(self.h_layout_widget)
         self.select_button.setObjectName("select_button")
-        self.v_layout.addWidget(self.select_button)
+        self.v_layout_2.addWidget(self.select_button)
         self.delete_button = QtWidgets.QPushButton(self.h_layout_widget)
         self.delete_button.setObjectName("delete_button")
-        self.v_layout.addWidget(self.delete_button)
-        self.h_layout.addLayout(self.v_layout)
-
+        self.v_layout_2.addWidget(self.delete_button)
+        #self.h_layout_2.addLayout(self.v_layout)
+        self.h_layout.addLayout(self.v_layout_1)
+        self.h_layout.addLayout(self.v_layout_2)
+        
         mainwindow.setCentralWidget(self.centralwidget)
         
 
@@ -115,6 +103,19 @@ class ui_mainwindow(object):
         self.file_menu.setTitle(_translate("MainWindow", "File"))
 
 
+
+class MyWidget(QWidget): 
+    def __init__(self): 
+        super().__init__() 
+        btn1 = QtWidgets.QPushButton('1') 
+        btn2 = QtWidgets.QPushButton('2') 
+        btn3 = QtWidgets.QPushButton('3')
+        layout = QtWidgets.QHBoxLayout() 
+        layout.addWidget(btn1) 
+        layout.addWidget(btn2) 
+        layout.addWidget(btn3)
+        self.setLayout(layout) 
+        self.setGeometry(300, 100, 350, 150) # x, y, width, height self.setWindowTitle("QWidget") self.show()
 
 
 if __name__ == "__main__":

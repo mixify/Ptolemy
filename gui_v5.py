@@ -1,6 +1,6 @@
 
 # coding: utf-8
-
+"""
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from tkinter import *
@@ -15,7 +15,7 @@ class MyApp:
 
     def init_ui(self):
         
-#        menu_bar = self.menuBar()
+        menu_bar = self.menuBar()
         
         
         exitAction = QAction(QIcon('exit.png'), 'Exit', self)
@@ -23,7 +23,7 @@ class MyApp:
         exitAction.setStatusTip('Exit application')
         exitAction.triggered.connect(qApp.quit)
 
- #       self.statusBar()
+        self.statusBar()
 
         btn1 = QPushButton('녹화',self)
         btn2 = QPushButton('시작',self)
@@ -74,6 +74,7 @@ if __name__ == '__main__':
 # Created by: PyQt5 UI code generator 5.12
 #
 # WARNING! All changes made in this file will be lost!
+"""
 """
 from PyQt5 import QtCore, QtGui, QtWidgets
 
