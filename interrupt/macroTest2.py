@@ -15,6 +15,8 @@ class MyApp(QWidget):
         self.hm = pyHook.HookManager()
         self.hm.KeyDown = self.keylogger.OnKeyDownEvent
         self.hm.KeyUp = self.keylogger.OnKeyUpEvent
+        self.hm.MouseAllButtonsDown = self.keylogger.OnMouseDownEvent
+        self.hm.MouseAllButtonsUp = self.keylogger.OnMouseUpEvent
 
         self.start_btn = QPushButton('Start', self)
         self.stop_btn = QPushButton('Stop', self)
@@ -46,12 +48,15 @@ class MyApp(QWidget):
         self.show()
 
     def start_btn_click(self):
+        
         self.hm.HookKeyboard()
+        self.hm.HookMouse()
 
     def stop_btn_click(self):
 
-        self.keylogger.saveKeyLog()
         self.hm.UnhookKeyboard()
+        self.hm.UnhookMouse()
+        self.keylogger.saveKeyLog()
 
 
 if __name__ == '__main__':
