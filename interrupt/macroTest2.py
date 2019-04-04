@@ -2,21 +2,14 @@ import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import QTimer
 import win32api
-import pyautogui
-import pyHook
-import pyHookKeyLogger as KL
+import keylogger as kl
 
 class MyApp(QWidget):
 
     def __init__(self):
         super().__init__()
 
-        self.keylogger = KL.KeyLogger()
-        self.hm = pyHook.HookManager()
-        self.hm.KeyDown = self.keylogger.OnKeyDownEvent
-        self.hm.KeyUp = self.keylogger.OnKeyUpEvent
-        self.hm.MouseAllButtonsDown = self.keylogger.OnMouseDownEvent
-        self.hm.MouseAllButtonsUp = self.keylogger.OnMouseUpEvent
+        self.keylogger = kl.KeyLogger()
 
         self.start_btn = QPushButton('Start', self)
         self.stop_btn = QPushButton('Stop', self)
@@ -48,14 +41,12 @@ class MyApp(QWidget):
         self.show()
 
     def start_btn_click(self):
-        
-        self.hm.HookKeyboard()
-        self.hm.HookMouse()
+
+        self.keylogger.startRecord()
 
     def stop_btn_click(self):
 
-        self.hm.UnhookKeyboard()
-        self.hm.UnhookMouse()
+        self.keylogger.stopRecord()
         self.keylogger.saveKeyLog()
 
 
