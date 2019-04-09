@@ -1,15 +1,9 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'add.ui'
-#
-# Created by: PyQt5 UI code generator 5.12
-#
-# WARNING! All changes made in this file will be lost!
-
 from PyQt5 import QtCore, QtGui, QtWidgets
+import mouse_ui,keyboard_ui
 
 
-class Ui_Dialog(object):
+class add_ui(object):
+    
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(611, 645)
@@ -84,9 +78,9 @@ class Ui_Dialog(object):
         self.pushButton_11 = QtWidgets.QPushButton(self.groupBox_3)
         self.pushButton_11.setGeometry(QtCore.QRect(240, 560, 75, 23))
         self.pushButton_11.setObjectName("pushButton_11")
-        self.pushButton_10 = QtWidgets.QPushButton(Dialog)
-        self.pushButton_10.setGeometry(QtCore.QRect(520, 610, 75, 23))
-        self.pushButton_10.setObjectName("pushButton_10")
+#        self.pushButton_10 = QtWidgets.QPushButton(Dialog)
+#        self.pushButton_10.setGeometry(QtCore.QRect(520, 610, 75, 23))
+#        self.pushButton_10.setObjectName("pushButton_10")
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -98,8 +92,13 @@ class Ui_Dialog(object):
         self.radioButton.setText(_translate("Dialog", "일반 매크로"))
         self.radioButton_2.setText(_translate("Dialog", "다이나믹 매크로"))
         self.groupBox_2.setTitle(_translate("Dialog", "일반 매크로"))
+
         self.pushButton_2.setText(_translate("Dialog", "추가하기"))
+        self.pushButton_2.clicked.connect(self.keyboard_setting)
+        
         self.pushButton_3.setText(_translate("Dialog", "추가하기"))
+        self.pushButton_3.clicked.connect(self.mouse_setting)
+
         self.label.setText(_translate("Dialog", "마우스 설정"))
         self.label_2.setText(_translate("Dialog", "키보드 설정"))
         self.pushButton.setText(_translate("Dialog", "저장하기"))
@@ -111,11 +110,26 @@ class Ui_Dialog(object):
         self.groupBox_4.setTitle(_translate("Dialog", "학습요인 설정"))
         self.label_6.setText(_translate("Dialog", "긍정요소 설정"))
         self.label_10.setText(_translate("Dialog", "부정요소 설정"))
+
         self.pushButton_8.setText(_translate("Dialog", "설정하기"))
         self.pushButton_9.setText(_translate("Dialog", "설정하기"))
-        self.pushButton_11.setText(_translate("Dialog", "저장하기"))
-        self.pushButton_10.setText(_translate("Dialog", "PushButton"))
 
+        self.pushButton_11.setText(_translate("Dialog", "저장하기"))
+    #    self.pushButton_10.setText(_translate("Dialog", "닫기"))
+
+    def mouse_setting(self):
+        Dialog = QtWidgets.QDialog(self.pushButton_3)
+        ui = mouse_ui.mouse_ui()
+        ui.setupUi(Dialog)
+        print('tlqkf')
+        Dialog.show()
+
+    def keyboard_setting(self):
+        Dialog = QtWidgets.QDialog(self.pushButton_2)
+        ui = keyboard_ui.keyboard_ui()
+        ui.setupUi(Dialog)
+        Dialog.show()
+        
 
 
 
@@ -123,7 +137,7 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     Dialog = QtWidgets.QDialog()
-    ui = Ui_Dialog()
+    ui = add_ui()
     ui.setupUi(Dialog)
     Dialog.show()
     sys.exit(app.exec_())

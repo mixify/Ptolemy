@@ -9,7 +9,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_Dialog(object):
+class mouse_ui(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(186, 264)
@@ -72,19 +72,20 @@ class Ui_Dialog(object):
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
         self.label.setText(_translate("Dialog", "현재 마우스 좌표"))
         self.label_2.setText(_translate("Dialog", "x :"))
-        self.label_3.setText(_translate("Dialog", "y"))
+        self.label_3.setText(_translate("Dialog", "y :"))
         self.label_4.setText(_translate("Dialog", "0"))
         self.label_5.setText(_translate("Dialog", "0"))
         self.label_7.setText(_translate("Dialog", "매크로 마우스 좌표 설정하기"))
         self.label_9.setText(_translate("Dialog", "x :"))
         self.label_10.setText(_translate("Dialog", "y :"))
         self.label_6.setText(_translate("Dialog", "마우스 딜레이"))
-        self.comboBox.setItemText(0, _translate("Dialog", "좌클릭"))
+        self.comboBox.setItemText(0, _translate("Dialo g", "좌클릭"))
         self.comboBox.setItemText(1, _translate("Dialog", "우클릭"))
         self.comboBox.setItemText(2, _translate("Dialog", "드레그 시작"))
         self.comboBox.setItemText(3, _translate("Dialog", "드레그 끝"))
         self.label_8.setText(_translate("Dialog", "마우스 동작"))
-
+##    def take_mouse_xy():
+        
 
 
 
@@ -92,7 +93,7 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     Dialog = QtWidgets.QDialog()
-    ui = Ui_Dialog()
+    ui = mouse_ui()
     ui.setupUi(Dialog)
     Dialog.show()
     sys.exit(app.exec_())
