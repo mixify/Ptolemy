@@ -2,7 +2,7 @@ import sys
 import pyautogui
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QPixmap
-import numpy as np
+import macro
 import time
 
 class MyApp(QWidget):
@@ -10,7 +10,7 @@ class MyApp(QWidget):
     def __init__(self):
         super().__init__()
 
-        self.loaded_data = []
+        self.m = macro.Macro()
         self.open_btn = QPushButton('Open Script')
 
         self.n_le = QLineEdit()
@@ -49,8 +49,7 @@ class MyApp(QWidget):
         fname = QFileDialog.getOpenFileName(self, 'Open file', './')
 
         if fname[0]:
-            self.loaded_data = np.genfromtxt(fname[0], encoding='ascii', names=('option', 'x_pos', 'y_pos', 'key', 'delay'), dtype=None)
-            print(self.loaded_data)
+            self.m.readScripts(fname[0])
             
     def start_btn_clicked(self):
         n = int(self.n_le.text())
@@ -58,13 +57,7 @@ class MyApp(QWidget):
 
         time.sleep(t)
         for i in range(n):
-            for (option, x_pos, y_pos, key, delay) in self.loaded_data:
-                if option == 1:
-                    pyautogui.keyDown(key)
-                    time.sleep(delay)
-                    pyautogui.keyUp(key)
-                elif option == 2:
-                    pyautogui.click(x_pos, y_pos, button=key)
+            self.m.runMacro()
 
 
 if __name__ == '__main__':
