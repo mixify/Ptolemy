@@ -1,7 +1,6 @@
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
-#from PyQt5.QtWidgets import QMessageBox
-import mouse_ui,add_ui,keyboard_ui
+from PyQt5.QtWidgets import QMessageBox
 
 
 
@@ -100,15 +99,15 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuHelp.menuAction())
 
         self.retranslateUi(MainWindow)
+
+        self.pushButton_2.clicked.connect(self.add_button_clicked)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        
-        
+
         self.pushButton_2.setText(_translate("MainWindow", "추가"))
-        self.pushButton_2.clicked.connect(self.add_button_clicked)
         self.pushButton.setText(_translate("MainWindow", "실행"))
         self.pushButton_3.setText(_translate("MainWindow", "수정"))
         self.pushButton_4.setText(_translate("MainWindow", "삭제"))
@@ -127,10 +126,246 @@ class Ui_MainWindow(object):
     
     def add_button_clicked(self):
         Dialog = QtWidgets.QDialog(self.pushButton_2)
-        ui = add_ui.add_ui()
+        ui = add_ui()
         ui.setupUi(Dialog)
-        #ui.pushButton_2.clicked.connect(self.keyboard_setting)
         Dialog.show()
+        Dialog.exec_()
+
+
+
+class add_ui(object):
+    
+    def setupUi(self, Dialog):
+        Dialog.setObjectName("Dialog")
+        Dialog.resize(611, 645)
+        self.groupBox = QtWidgets.QGroupBox(Dialog)
+        self.groupBox.setGeometry(QtCore.QRect(10, 20, 241, 91))
+        self.groupBox.setObjectName("groupBox")
+        self.radioButton = QtWidgets.QRadioButton(self.groupBox)
+        self.radioButton.setGeometry(QtCore.QRect(30, 30, 90, 16))
+        self.radioButton.setObjectName("radioButton")
+        self.radioButton_2 = QtWidgets.QRadioButton(self.groupBox)
+        self.radioButton_2.setGeometry(QtCore.QRect(30, 60, 111, 16))
+        self.radioButton_2.setObjectName("radioButton_2")
+        self.groupBox_2 = QtWidgets.QGroupBox(Dialog)
+        self.groupBox_2.setGeometry(QtCore.QRect(10, 120, 241, 351))
+        self.groupBox_2.setObjectName("groupBox_2")
+        self.pushButton_2 = QtWidgets.QPushButton(self.groupBox_2)
+        self.pushButton_2.setGeometry(QtCore.QRect(120, 80, 75, 23))
+        self.pushButton_2.setObjectName("pushButton_2")
+        self.pushButton_3 = QtWidgets.QPushButton(self.groupBox_2)
+        self.pushButton_3.setGeometry(QtCore.QRect(120, 50, 75, 23))
+        self.pushButton_3.setObjectName("pushButton_3")
+        self.label = QtWidgets.QLabel(self.groupBox_2)
+        self.label.setGeometry(QtCore.QRect(20, 50, 71, 20))
+        self.label.setScaledContents(False)
+        self.label.setObjectName("label")
+        self.label_2 = QtWidgets.QLabel(self.groupBox_2)
+        self.label_2.setGeometry(QtCore.QRect(20, 80, 71, 20))
+        self.label_2.setScaledContents(False)
+        self.label_2.setObjectName("label_2")
+        self.listView = QtWidgets.QListView(self.groupBox_2)
+        self.listView.setGeometry(QtCore.QRect(10, 130, 221, 181))
+        self.listView.setObjectName("listView")
+        self.pushButton = QtWidgets.QPushButton(self.groupBox_2)
+        self.pushButton.setGeometry(QtCore.QRect(160, 320, 75, 23))
+        self.pushButton.setObjectName("pushButton")
+        self.groupBox_3 = QtWidgets.QGroupBox(Dialog)
+        self.groupBox_3.setGeometry(QtCore.QRect(280, 10, 321, 591))
+        self.groupBox_3.setObjectName("groupBox_3")
+        self.pushButton_4 = QtWidgets.QPushButton(self.groupBox_3)
+        self.pushButton_4.setGeometry(QtCore.QRect(110, 30, 75, 23))
+        self.pushButton_4.setObjectName("pushButton_4")
+        self.label_4 = QtWidgets.QLabel(self.groupBox_3)
+        self.label_4.setGeometry(QtCore.QRect(20, 30, 61, 21))
+        self.label_4.setObjectName("label_4")
+        self.label_5 = QtWidgets.QLabel(self.groupBox_3)
+        self.label_5.setGeometry(QtCore.QRect(20, 540, 61, 21))
+        self.label_5.setObjectName("label_5")
+        self.pushButton_5 = QtWidgets.QPushButton(self.groupBox_3)
+        self.pushButton_5.setGeometry(QtCore.QRect(110, 540, 75, 23))
+        self.pushButton_5.setObjectName("pushButton_5")
+        self.groupBox_4 = QtWidgets.QGroupBox(self.groupBox_3)
+        self.groupBox_4.setGeometry(QtCore.QRect(10, 80, 291, 451))
+        self.groupBox_4.setObjectName("groupBox_4")
+        self.label_6 = QtWidgets.QLabel(self.groupBox_4)
+        self.label_6.setGeometry(QtCore.QRect(10, 40, 81, 16))
+        self.label_6.setObjectName("label_6")
+        self.label_10 = QtWidgets.QLabel(self.groupBox_4)
+        self.label_10.setGeometry(QtCore.QRect(10, 250, 81, 16))
+        self.label_10.setObjectName("label_10")
+        self.pushButton_8 = QtWidgets.QPushButton(self.groupBox_4)
+        self.pushButton_8.setGeometry(QtCore.QRect(110, 40, 75, 23))
+        self.pushButton_8.setObjectName("pushButton_8")
+        self.pushButton_9 = QtWidgets.QPushButton(self.groupBox_4)
+        self.pushButton_9.setGeometry(QtCore.QRect(110, 250, 75, 23))
+        self.pushButton_9.setObjectName("pushButton_9")
+        self.graphicsView = QtWidgets.QGraphicsView(self.groupBox_4)
+        self.graphicsView.setGeometry(QtCore.QRect(10, 70, 271, 161))
+        self.graphicsView.setObjectName("graphicsView")
+        self.graphicsView_2 = QtWidgets.QGraphicsView(self.groupBox_4)
+        self.graphicsView_2.setGeometry(QtCore.QRect(10, 280, 271, 161))
+        self.graphicsView_2.setObjectName("graphicsView_2")
+        self.pushButton_11 = QtWidgets.QPushButton(self.groupBox_3)
+        self.pushButton_11.setGeometry(QtCore.QRect(240, 560, 75, 23))
+        self.pushButton_11.setObjectName("pushButton_11")
+#        self.pushButton_10 = QtWidgets.QPushButton(Dialog)
+#        self.pushButton_10.setGeometry(QtCore.QRect(520, 610, 75, 23))
+#        self.pushButton_10.setObjectName("pushButton_10")
+    
+        self.pushButton_2.clicked.connect(self.keyboard_setting)
+        self.pushButton_3.clicked.connect(self.mouse_setting)
+
+        self.retranslateUi(Dialog)
+        QtCore.QMetaObject.connectSlotsByName(Dialog)
+
+    def retranslateUi(self, Dialog):
+        _translate = QtCore.QCoreApplication.translate
+        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        self.groupBox.setTitle(_translate("Dialog", "매크로 종류"))
+        self.radioButton.setText(_translate("Dialog", "일반 매크로"))
+        self.radioButton_2.setText(_translate("Dialog", "다이나믹 매크로"))
+        self.groupBox_2.setTitle(_translate("Dialog", "일반 매크로"))
+
+        self.pushButton_2.setText(_translate("Dialog", "추가하기"))
+        self.pushButton_3.setText(_translate("Dialog", "추가하기"))
+
+        self.label.setText(_translate("Dialog", "마우스 설정"))
+        self.label_2.setText(_translate("Dialog", "키보드 설정"))
+        self.pushButton.setText(_translate("Dialog", "저장하기"))
+        self.groupBox_3.setTitle(_translate("Dialog", "다이나믹 매크로"))
+        self.pushButton_4.setText(_translate("Dialog", "불러오기"))
+        self.label_4.setText(_translate("Dialog", "시작매크로"))
+        self.label_5.setText(_translate("Dialog", "종료매크로"))
+        self.pushButton_5.setText(_translate("Dialog", "불러오기"))
+        self.groupBox_4.setTitle(_translate("Dialog", "학습요인 설정"))
+        self.label_6.setText(_translate("Dialog", "긍정요소 설정"))
+        self.label_10.setText(_translate("Dialog", "부정요소 설정"))
+
+        self.pushButton_8.setText(_translate("Dialog", "설정하기"))
+        self.pushButton_9.setText(_translate("Dialog", "설정하기"))
+
+        self.pushButton_11.setText(_translate("Dialog", "저장하기"))
+
+
+    def keyboard_setting(self):
+        Dialog = QtWidgets.QDialog(self.pushButton_2)
+        ui = keyboard_ui()
+        ui.setupUi(Dialog)
+        Dialog.show()
+        Dialog.exec_()
+
+    def mouse_setting(self):
+        Dialog = QtWidgets.QDialog(self.pushButton_3)
+        ui = mouse_ui()
+        ui.setupUi(Dialog)
+        Dialog.show()
+        Dialog.exec_()
+        QMessageBox.about(self,"tlqkf","Tlqf")
+
+class mouse_ui(object):
+    def setupUi(self, Dialog):
+        Dialog.setObjectName("Dialog")
+        Dialog.resize(186, 264)
+        self.label = QtWidgets.QLabel(Dialog)
+        self.label.setGeometry(QtCore.QRect(10, 10, 101, 16))
+        self.label.setObjectName("label")
+        self.label_2 = QtWidgets.QLabel(Dialog)
+        self.label_2.setGeometry(QtCore.QRect(10, 40, 16, 16))
+        self.label_2.setObjectName("label_2")
+        self.label_3 = QtWidgets.QLabel(Dialog)
+        self.label_3.setGeometry(QtCore.QRect(80, 40, 16, 16))
+        self.label_3.setObjectName("label_3")
+        self.label_4 = QtWidgets.QLabel(Dialog)
+        self.label_4.setGeometry(QtCore.QRect(30, 40, 31, 16))
+        self.label_4.setObjectName("label_4")
+        self.label_5 = QtWidgets.QLabel(Dialog)
+        self.label_5.setGeometry(QtCore.QRect(100, 40, 31, 16))
+        self.label_5.setObjectName("label_5")
+        self.label_7 = QtWidgets.QLabel(Dialog)
+        self.label_7.setGeometry(QtCore.QRect(10, 70, 161, 16))
+        self.label_7.setObjectName("label_7")
+        self.label_9 = QtWidgets.QLabel(Dialog)
+        self.label_9.setGeometry(QtCore.QRect(10, 100, 16, 16))
+        self.label_9.setObjectName("label_9")
+        self.label_10 = QtWidgets.QLabel(Dialog)
+        self.label_10.setGeometry(QtCore.QRect(80, 100, 16, 16))
+        self.label_10.setObjectName("label_10")
+        self.spinBox = QtWidgets.QSpinBox(Dialog)
+        self.spinBox.setGeometry(QtCore.QRect(30, 100, 42, 22))
+        self.spinBox.setObjectName("spinBox")
+        self.spinBox_2 = QtWidgets.QSpinBox(Dialog)
+        self.spinBox_2.setGeometry(QtCore.QRect(100, 100, 42, 22))
+        self.spinBox_2.setObjectName("spinBox_2")
+        self.label_6 = QtWidgets.QLabel(Dialog)
+        self.label_6.setGeometry(QtCore.QRect(10, 190, 81, 16))
+        self.label_6.setObjectName("label_6")
+        self.comboBox = QtWidgets.QComboBox(Dialog)
+        self.comboBox.setGeometry(QtCore.QRect(90, 140, 76, 22))
+        self.comboBox.setObjectName("comboBox")
+        self.comboBox.addItem("")
+        self.comboBox.addItem("")
+        self.comboBox.addItem("")
+        self.comboBox.addItem("")
+        self.label_8 = QtWidgets.QLabel(Dialog)
+        self.label_8.setGeometry(QtCore.QRect(10, 140, 81, 16))
+        self.label_8.setObjectName("label_8")
+        self.doubleSpinBox = QtWidgets.QDoubleSpinBox(Dialog)
+        self.doubleSpinBox.setGeometry(QtCore.QRect(90, 190, 62, 22))
+        self.doubleSpinBox.setObjectName("doubleSpinBox")
+        self.buttonBox = QtWidgets.QDialogButtonBox(Dialog)
+        self.buttonBox.setGeometry(QtCore.QRect(10, 230, 156, 23))
+        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
+        self.buttonBox.setObjectName("buttonBox")
+
+        self.retranslateUi(Dialog)
+        QtCore.QMetaObject.connectSlotsByName(Dialog)
+
+    def retranslateUi(self, Dialog):
+        _translate = QtCore.QCoreApplication.translate
+        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        self.label.setText(_translate("Dialog", "현재 마우스 좌표"))
+        self.label_2.setText(_translate("Dialog", "x :"))
+        self.label_3.setText(_translate("Dialog", "y :"))
+        self.label_4.setText(_translate("Dialog", "0"))
+        self.label_5.setText(_translate("Dialog", "0"))
+        self.label_7.setText(_translate("Dialog", "매크로 마우스 좌표 설정하기"))
+        self.label_9.setText(_translate("Dialog", "x :"))
+        self.label_10.setText(_translate("Dialog", "y :"))
+        self.label_6.setText(_translate("Dialog", "마우스 딜레이"))
+        self.comboBox.setItemText(0, _translate("Dialo g", "좌클릭"))
+        self.comboBox.setItemText(1, _translate("Dialog", "우클릭"))
+        self.comboBox.setItemText(2, _translate("Dialog", "드레그 시작"))
+        self.comboBox.setItemText(3, _translate("Dialog", "드레그 끝"))
+        self.label_8.setText(_translate("Dialog", "마우스 동작"))
+
+class keyboard_ui(object):
+    def setupUi(self, Dialog):
+        Dialog.setObjectName("Dialog")
+        Dialog.resize(195, 122)
+        self.label = QtWidgets.QLabel(Dialog)
+        self.label.setGeometry(QtCore.QRect(10, 30, 56, 12))
+        self.label.setObjectName("label")
+        self.lineEdit = QtWidgets.QLineEdit(Dialog)
+        self.lineEdit.setGeometry(QtCore.QRect(60, 30, 101, 20))
+        self.lineEdit.setStatusTip("")
+        self.lineEdit.setObjectName("lineEdit")
+        self.buttonBox = QtWidgets.QDialogButtonBox(Dialog)
+        self.buttonBox.setGeometry(QtCore.QRect(20, 80, 156, 23))
+        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
+        self.buttonBox.setObjectName("buttonBox")
+
+        self.retranslateUi(Dialog)
+        QtCore.QMetaObject.connectSlotsByName(Dialog)
+
+    def retranslateUi(self, Dialog):
+        _translate = QtCore.QCoreApplication.translate
+        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        self.label.setText(_translate("Dialog", "키 입력"))
+        self.lineEdit.setText(_translate("Dialog", "키를 입력하세요"))
+
+
+
 
 
 if __name__ == "__main__":

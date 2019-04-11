@@ -1,9 +1,13 @@
+import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
-import mouse_ui
+#from PyQt5.QtWidgets import QMessageBox
+import mouse_ui,add_ui,keyboard_ui
 
 
 
 class Ui_MainWindow(object):
+
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(740, 640)
@@ -101,10 +105,9 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        
-        
+
         self.pushButton_2.setText(_translate("MainWindow", "추가"))
-   #     self.pushButton_2.clicked.connect(add_ui.)
+        self.pushButton_2.clicked.connect(self.add_button_clicked)
         self.pushButton.setText(_translate("MainWindow", "실행"))
         self.pushButton_3.setText(_translate("MainWindow", "수정"))
         self.pushButton_4.setText(_translate("MainWindow", "삭제"))
@@ -120,12 +123,16 @@ class Ui_MainWindow(object):
         self.action_6.setText(_translate("MainWindow", "종료"))
         self.action_7.setText(_translate("MainWindow", "일반 매크로 생성"))
         self.action_8.setText(_translate("MainWindow", "딥러닝 매크로 생성"))
+    
+    def add_button_clicked(self):
+        Dialog = QtWidgets.QDialog(self.pushButton_2)
+        ui = add_ui.add_ui()
+        ui.setupUi(Dialog)
 
-
+        Dialog.show()
 
 
 if __name__ == "__main__":
-    import sys
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
