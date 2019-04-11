@@ -132,7 +132,6 @@ class Ui_MainWindow(object):
         Dialog.exec_()
 
 
-
 class add_ui(object):
     
     def setupUi(self, Dialog):
@@ -148,27 +147,34 @@ class add_ui(object):
         self.radioButton_2.setGeometry(QtCore.QRect(30, 60, 111, 16))
         self.radioButton_2.setObjectName("radioButton_2")
         self.groupBox_2 = QtWidgets.QGroupBox(Dialog)
-        self.groupBox_2.setGeometry(QtCore.QRect(10, 120, 241, 351))
+        self.groupBox_2.setGeometry(QtCore.QRect(10, 120, 241, 381))
         self.groupBox_2.setObjectName("groupBox_2")
         self.pushButton_2 = QtWidgets.QPushButton(self.groupBox_2)
-        self.pushButton_2.setGeometry(QtCore.QRect(120, 80, 75, 23))
+        self.pushButton_2.setGeometry(QtCore.QRect(120, 75, 75, 23))
         self.pushButton_2.setObjectName("pushButton_2")
         self.pushButton_3 = QtWidgets.QPushButton(self.groupBox_2)
-        self.pushButton_3.setGeometry(QtCore.QRect(120, 50, 75, 23))
+        self.pushButton_3.setGeometry(QtCore.QRect(120, 45, 75, 23))
         self.pushButton_3.setObjectName("pushButton_3")
+        self.pushButton_10 = QtWidgets.QPushButton(self.groupBox_2)
+        self.pushButton_10.setGeometry(QtCore.QRect(120, 105, 75, 23))
+        self.pushButton_10.setObjectName("pushButton_10")
         self.label = QtWidgets.QLabel(self.groupBox_2)
-        self.label.setGeometry(QtCore.QRect(20, 50, 71, 20))
+        self.label.setGeometry(QtCore.QRect(20, 45, 71, 20))
         self.label.setScaledContents(False)
         self.label.setObjectName("label")
         self.label_2 = QtWidgets.QLabel(self.groupBox_2)
-        self.label_2.setGeometry(QtCore.QRect(20, 80, 71, 20))
+        self.label_2.setGeometry(QtCore.QRect(20, 75, 71, 20))
         self.label_2.setScaledContents(False)
         self.label_2.setObjectName("label_2")
+        self.label_11 = QtWidgets.QLabel(self.groupBox_2)
+        self.label_11.setGeometry(QtCore.QRect(20, 105, 71, 20))
+        self.label_11.setScaledContents(False)
+        self.label_11.setObjectName("label_11")
         self.listView = QtWidgets.QListView(self.groupBox_2)
-        self.listView.setGeometry(QtCore.QRect(10, 130, 221, 181))
+        self.listView.setGeometry(QtCore.QRect(10, 140, 221, 191))
         self.listView.setObjectName("listView")
         self.pushButton = QtWidgets.QPushButton(self.groupBox_2)
-        self.pushButton.setGeometry(QtCore.QRect(160, 320, 75, 23))
+        self.pushButton.setGeometry(QtCore.QRect(160, 335, 75, 23))
         self.pushButton.setObjectName("pushButton")
         self.groupBox_3 = QtWidgets.QGroupBox(Dialog)
         self.groupBox_3.setGeometry(QtCore.QRect(280, 10, 321, 591))
@@ -212,7 +218,6 @@ class add_ui(object):
 #        self.pushButton_10 = QtWidgets.QPushButton(Dialog)
 #        self.pushButton_10.setGeometry(QtCore.QRect(520, 610, 75, 23))
 #        self.pushButton_10.setObjectName("pushButton_10")
-    
         self.pushButton_2.clicked.connect(self.keyboard_setting)
         self.pushButton_3.clicked.connect(self.mouse_setting)
 
@@ -221,17 +226,22 @@ class add_ui(object):
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        Dialog.setWindowTitle(_translate("Dialog", "매크로 만들기"))
         self.groupBox.setTitle(_translate("Dialog", "매크로 종류"))
         self.radioButton.setText(_translate("Dialog", "일반 매크로"))
         self.radioButton_2.setText(_translate("Dialog", "다이나믹 매크로"))
         self.groupBox_2.setTitle(_translate("Dialog", "일반 매크로"))
 
         self.pushButton_2.setText(_translate("Dialog", "추가하기"))
+        
         self.pushButton_3.setText(_translate("Dialog", "추가하기"))
+        self.pushButton_10.setText(_translate("Dialog", "녹화하기"))
 
         self.label.setText(_translate("Dialog", "마우스 설정"))
         self.label_2.setText(_translate("Dialog", "키보드 설정"))
+        
+        self.label_11.setText(_translate("Dialog", "녹화 설정"))
+
         self.pushButton.setText(_translate("Dialog", "저장하기"))
         self.groupBox_3.setTitle(_translate("Dialog", "다이나믹 매크로"))
         self.pushButton_4.setText(_translate("Dialog", "불러오기"))
@@ -249,20 +259,19 @@ class add_ui(object):
 
 
     def keyboard_setting(self):
-        Dialog = QtWidgets.QDialog(self.pushButton_2)
+        Dialog = QtWidgets.QDialog()
         ui = keyboard_ui()
         ui.setupUi(Dialog)
         Dialog.show()
         Dialog.exec_()
-
+        
     def mouse_setting(self):
-        Dialog = QtWidgets.QDialog(self.pushButton_3)
+        Dialog = QtWidgets.QDialog()
         ui = mouse_ui()
         ui.setupUi(Dialog)
         Dialog.show()
         Dialog.exec_()
-        QMessageBox.about(self,"tlqkf","Tlqf")
-
+        
 class mouse_ui(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
