@@ -2,7 +2,7 @@ import sys
 import pyautogui
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QPixmap
-import macro
+import Macro as macro
 import time
 
 class MyApp(QWidget):
@@ -45,11 +45,10 @@ class MyApp(QWidget):
         self.show()
 
     def show_dialog(self):
-
         fname = QFileDialog.getOpenFileName(self, 'Open file', './')
 
         if fname[0]:
-            self.m.readScripts(fname[0])
+            self.m.loadScript(fname[0])
             
     def start_btn_clicked(self):
         n = int(self.n_le.text())
@@ -57,7 +56,7 @@ class MyApp(QWidget):
 
         time.sleep(t)
         for i in range(n):
-            self.m.runMacro()
+           self.m.runMacro()
 
 
 if __name__ == '__main__':

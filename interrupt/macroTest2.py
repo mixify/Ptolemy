@@ -2,14 +2,13 @@ import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import QTimer
 import win32api
-import keylogger as kl
+import Macro as macro
+import time
 
 class MyApp(QWidget):
 
     def __init__(self):
         super().__init__()
-
-        self.keylogger = kl.KeyLogger()
 
         self.start_btn = QPushButton('Start', self)
         self.stop_btn = QPushButton('Stop', self)
@@ -34,20 +33,20 @@ class MyApp(QWidget):
         self.setLayout(vbox)
 
         self.start_btn.clicked.connect(self.start_btn_click)
-        self.stop_btn.clicked.connect(self.stop_btn_click)
+        #self.stop_btn.clicked.connect(self.stop_btn_click)
 
         self.setWindowTitle('Ptolemy')
         self.setGeometry(300, 300, 300, 200)
         self.show()
 
     def start_btn_click(self):
+        m = macro.Macro()
+        m.startRecord()
+        m.stopRecord()
+        m.saveScript('keylog.txt')
 
-        self.keylogger.startRecord()
+    #def stop_btn_click(self):
 
-    def stop_btn_click(self):
-
-        self.keylogger.stopRecord()
-        self.keylogger.saveKeyLog()
 
 
 if __name__ == '__main__':
