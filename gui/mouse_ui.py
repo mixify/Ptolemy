@@ -5,11 +5,12 @@
 # Created by: PyQt5 UI code generator 5.12
 #
 # WARNING! All changes made in this file will be lost!
-
+import sys
 from PyQt5 import QtCore, QtGui, QtWidgets 
 
 import mouse
 import keyboard
+import Macro
 
 class mouseHook:
    # def __init__(self):
@@ -44,6 +45,7 @@ class mouseHook:
 class mouse_ui(object):
     def __init__(self):
         self.mh = mouseHook(self)
+        self.macro = Macro.Macro(self)
      #     self.setupUi(self)
 
     def setupUi(self, Dialog):
@@ -119,10 +121,14 @@ class mouse_ui(object):
         self.comboBox.setItemText(2, _translate("Dialog", "드레그 시작"))
         self.comboBox.setItemText(3, _translate("Dialog", "드레그 끝"))
         self.label_8.setText(_translate("Dialog", "마우스 동작"))
-
-
+    
+    def return_spinboxvalue(self,Dialog):
+        a[0] = self.spinBox.value
+        a[1] = self.spinBox_2.value
+        return a
+    
 if __name__ == "__main__":
-    import sys
+#    import sys
     app = QtWidgets.QApplication(sys.argv)
     Dialog = QtWidgets.QDialog()
  #  mh = mouseHook()
