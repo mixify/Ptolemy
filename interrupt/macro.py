@@ -20,22 +20,13 @@ class Macro:
             self.last_time = event.time
 
             if isinstance(event, keyboard.KeyboardEvent):
-                temp.append(1)
-                temp.append(event.event_type)
-                temp.append(event.name)
+                self.addEventData(1, event.event_type, event.name, delay)
 
             elif isinstance(event, mouse.ButtonEvent):
-                temp.append(2)
-                temp.append(event.event_type)
-                temp.append(event.button)
+                self.addEventData(2, event.event_type, event.button, delay)
 
             elif isinstance(event, mouse.MoveEvent):
-                temp.append(3)
-                temp.append(event.x)
-                temp.append(event.y)
-
-            temp.append(delay)
-            self.event_data.append(temp)
+                self.addEventData(3, event.x, event.y, delay)
 
     def loadScript(self, fname):
         self.event_data = np.genfromtxt(fname, encoding='ascii', dtype=None, delimiter=',')
@@ -63,61 +54,33 @@ class Macro:
         mouse.unhook_all()
         self.last_time = None
 
-    def readKeyboardEvent(self):
-        event = keyboard.read_event()
-        return event.name
-
     def setKeyPress(self, event_name):
         self.setKeyDown(event_name)
         self.setKeyUp(event_name)
     
     def setKeyDown(self, event_name):
-        temp = []
-
         self.init_if_first()
-
-        temp.append(1)
-        temp.append('down')
-        temp.append(event_name)
-        temp.append(self.last_time)
-        self.event_data.append(temp)
+        self.addEventData(1, 'down', event_name, self.last_time)
 
     def setKeyUp(self, event_name):
-        temp = []
-
         self.init_if_first()
-
-        temp.append(1)
-        temp.append('up')
-        temp.append(event_name)
-        temp.append(self.last_time)
-        self.event_data.append(temp)
+        self.addEventData(1, 'up', event_name, self.last_time)
 
     def setMouseClick(self, event_name):
         self.setMouseDown(event_name)
         self.setMouseUp(event_name)
 
     def setMouseDown(self, event_name):
-        temp = []
-
         self.init_if_first()
-
-        temp.append(2)
-        temp.append('down')
-        temp.append(event_name)
-        temp.append(self.last_time)
-        self.event_data.append(temp)
+        self.addEventData(2, 'down', event_name, self.last_time)
 
     def setMouseUp(self, event_name):
-        temp = []
-
         self.init_if_first()
+        self.addEventData(2, 'up', event_name, self.last_time)
 
-        temp.append(2)
-        temp.append('up')
-        temp.append(event_name)
-        temp.append(self.last_time)
-        self.event_data.append(temp)
+    def setMouseMove(self, x_pos, y_pos):
+        self.init_if_first()
+        self.addEventData(3, x_pos, y_pos, self.last_time)
 
     def setDelay(self, delay):
         self.last_time = delay
@@ -126,6 +89,14 @@ class Macro:
         if self.last_time is None:
             self.event_data.clear()
             self.last_time = 0
+
+    def addEventData(self, option, event_type, event_name, delay):
+        temp = []
+        temp.append(option)
+        temp.append(event_type)
+        temp.append(event_name)
+        temp.append(delay)
+        self.event_data.append(temp)
 
     def runMacro(self):
         for (option, event_type, event_name, delay) in self.event_data:
