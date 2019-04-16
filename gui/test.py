@@ -1,8 +1,8 @@
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMessageBox
-
-
+#from PyQt5.QtWidgets import QMessageBox
+import keyboard
+import mouse
 
 class Ui_MainWindow(object):
 
@@ -157,7 +157,10 @@ class add_ui(object):
         self.pushButton_3.setObjectName("pushButton_3")
         self.pushButton_10 = QtWidgets.QPushButton(self.groupBox_2)
         self.pushButton_10.setGeometry(QtCore.QRect(120, 105, 75, 23))
-        self.pushButton_10.setObjectName("pushButton_10")
+        self.pushButton_10.setObjectName("pushButton_12")
+        self.pushButton_12 = QtWidgets.QPushButton(self.groupBox_2)
+        self.pushButton_12.setGeometry(QtCore.QRect(120, 135, 75, 23))
+        self.pushButton_12.setObjectName("pushButton_12")
         self.label = QtWidgets.QLabel(self.groupBox_2)
         self.label.setGeometry(QtCore.QRect(20, 45, 71, 20))
         self.label.setScaledContents(False)
@@ -171,7 +174,7 @@ class add_ui(object):
         self.label_11.setScaledContents(False)
         self.label_11.setObjectName("label_11")
         self.listView = QtWidgets.QListView(self.groupBox_2)
-        self.listView.setGeometry(QtCore.QRect(10, 140, 221, 191))
+        self.listView.setGeometry(QtCore.QRect(10, 160, 221, 191))
         self.listView.setObjectName("listView")
         self.pushButton = QtWidgets.QPushButton(self.groupBox_2)
         self.pushButton.setGeometry(QtCore.QRect(160, 335, 75, 23))
@@ -218,6 +221,8 @@ class add_ui(object):
 #        self.pushButton_10 = QtWidgets.QPushButton(Dialog)
 #        self.pushButton_10.setGeometry(QtCore.QRect(520, 610, 75, 23))
 #        self.pushButton_10.setObjectName("pushButton_10")
+
+
         self.pushButton_2.clicked.connect(self.keyboard_setting)
         self.pushButton_3.clicked.connect(self.mouse_setting)
 
@@ -236,6 +241,7 @@ class add_ui(object):
         
         self.pushButton_3.setText(_translate("Dialog", "추가하기"))
         self.pushButton_10.setText(_translate("Dialog", "녹화하기"))
+        self.pushButton_12.setText(_translate("Dialog", "설정하기"))
 
         self.label.setText(_translate("Dialog", "마우스 설정"))
         self.label_2.setText(_translate("Dialog", "키보드 설정"))
@@ -259,12 +265,12 @@ class add_ui(object):
 
 
     def keyboard_setting(self):
-        Dialog = QtWidgets.QDialog()
+        Dialog = QtWidgets.QDialog(self.pushButton_10)
         ui = keyboard_ui()
         ui.setupUi(Dialog)
         Dialog.show()
         Dialog.exec_()
-        
+
     def mouse_setting(self):
         Dialog = QtWidgets.QDialog()
         ui = mouse_ui()
@@ -272,10 +278,46 @@ class add_ui(object):
         Dialog.show()
         Dialog.exec_()
         
+        
+
+class mouseHook:
+   # def __init__(self):
+   #     self.x_pos = None
+   #     self.y_pos = None
+
+    def __init__(self,ui):
+        self.ui = ui
+        self.x_pos = None
+        self.y_pos = None
+
+    def MouseEvent(self, event):
+        if isinstance(event, mouse.MoveEvent):
+            self.x_pos = event.x
+            self.y_pos = event.y
+            self.ui.label_4.setText(str(self.x_pos))
+            self.ui.label_5.setText(str(self.y_pos))
+            print(self.x_pos)
+    
+    def startHook(self):
+        mouse.hook(self.MouseEvent)
+
+    def stopHook(self):
+       # keyboard.wait('esc')
+        mouse.unhook(self.MouseEvent)
+   
+#    def update_mouse(self,Dialog):
+#        self.x_pos = event.x
+#        Dialog.setText(mh.x_pos)
+
+
 class mouse_ui(object):
+    def __init__(self):
+        self.mh = mouseHook(self)
+     #     self.setupUi(self)
+
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(186, 264)
+        Dialog.resize(180, 220)
         self.label = QtWidgets.QLabel(Dialog)
         self.label.setGeometry(QtCore.QRect(10, 10, 101, 16))
         self.label.setObjectName("label")
@@ -303,12 +345,11 @@ class mouse_ui(object):
         self.spinBox = QtWidgets.QSpinBox(Dialog)
         self.spinBox.setGeometry(QtCore.QRect(30, 100, 42, 22))
         self.spinBox.setObjectName("spinBox")
+        self.spinBox.setMaximum(1920)
         self.spinBox_2 = QtWidgets.QSpinBox(Dialog)
         self.spinBox_2.setGeometry(QtCore.QRect(100, 100, 42, 22))
         self.spinBox_2.setObjectName("spinBox_2")
-        self.label_6 = QtWidgets.QLabel(Dialog)
-        self.label_6.setGeometry(QtCore.QRect(10, 190, 81, 16))
-        self.label_6.setObjectName("label_6")
+        self.spinBox_2.setMaximum(1080)
         self.comboBox = QtWidgets.QComboBox(Dialog)
         self.comboBox.setGeometry(QtCore.QRect(90, 140, 76, 22))
         self.comboBox.setObjectName("comboBox")
@@ -319,34 +360,35 @@ class mouse_ui(object):
         self.label_8 = QtWidgets.QLabel(Dialog)
         self.label_8.setGeometry(QtCore.QRect(10, 140, 81, 16))
         self.label_8.setObjectName("label_8")
-        self.doubleSpinBox = QtWidgets.QDoubleSpinBox(Dialog)
-        self.doubleSpinBox.setGeometry(QtCore.QRect(90, 190, 62, 22))
-        self.doubleSpinBox.setObjectName("doubleSpinBox")
+
+
         self.buttonBox = QtWidgets.QDialogButtonBox(Dialog)
-        self.buttonBox.setGeometry(QtCore.QRect(10, 230, 156, 23))
+        self.buttonBox.setGeometry(QtCore.QRect(10, 180, 156, 23))
         self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName("buttonBox")
-
         self.retranslateUi(Dialog)
-        QtCore.QMetaObject.connectSlotsByName(Dialog)
 
+  #      self.label_4.mouseMoveEvent(self.label_4,mh.startHook)
+        QtCore.QMetaObject.connectSlotsByName(Dialog)
+        
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        self.mh.startHook()
         self.label.setText(_translate("Dialog", "현재 마우스 좌표"))
         self.label_2.setText(_translate("Dialog", "x :"))
         self.label_3.setText(_translate("Dialog", "y :"))
-        self.label_4.setText(_translate("Dialog", "0"))
-        self.label_5.setText(_translate("Dialog", "0"))
+        #self.label_4.setText(_translate("Dialog", str(self.mh.x_pos)))
+        #self.label_5.setText(_translate("Dialog", str(self.mh.y_pos)))
         self.label_7.setText(_translate("Dialog", "매크로 마우스 좌표 설정하기"))
         self.label_9.setText(_translate("Dialog", "x :"))
         self.label_10.setText(_translate("Dialog", "y :"))
-        self.label_6.setText(_translate("Dialog", "마우스 딜레이"))
-        self.comboBox.setItemText(0, _translate("Dialo g", "좌클릭"))
+        self.comboBox.setItemText(0, _translate("Dialog", "좌클릭"))
         self.comboBox.setItemText(1, _translate("Dialog", "우클릭"))
         self.comboBox.setItemText(2, _translate("Dialog", "드레그 시작"))
         self.comboBox.setItemText(3, _translate("Dialog", "드레그 끝"))
         self.label_8.setText(_translate("Dialog", "마우스 동작"))
+
 
 class keyboard_ui(object):
     def setupUi(self, Dialog):
@@ -372,6 +414,7 @@ class keyboard_ui(object):
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
         self.label.setText(_translate("Dialog", "키 입력"))
         self.lineEdit.setText(_translate("Dialog", "키를 입력하세요"))
+
 
 
 

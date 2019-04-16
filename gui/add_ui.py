@@ -1,7 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QWidget
+#from PyQt5.QtWidgets import QWidget
 import mouse_ui,keyboard_ui
-
 
 class add_ui(object):
     
@@ -28,7 +27,10 @@ class add_ui(object):
         self.pushButton_3.setObjectName("pushButton_3")
         self.pushButton_10 = QtWidgets.QPushButton(self.groupBox_2)
         self.pushButton_10.setGeometry(QtCore.QRect(120, 105, 75, 23))
-        self.pushButton_10.setObjectName("pushButton_10")
+        self.pushButton_10.setObjectName("pushButton_12")
+        self.pushButton_12 = QtWidgets.QPushButton(self.groupBox_2)
+        self.pushButton_12.setGeometry(QtCore.QRect(120, 135, 75, 23))
+        self.pushButton_12.setObjectName("pushButton_12")
         self.label = QtWidgets.QLabel(self.groupBox_2)
         self.label.setGeometry(QtCore.QRect(20, 45, 71, 20))
         self.label.setScaledContents(False)
@@ -42,7 +44,7 @@ class add_ui(object):
         self.label_11.setScaledContents(False)
         self.label_11.setObjectName("label_11")
         self.listView = QtWidgets.QListView(self.groupBox_2)
-        self.listView.setGeometry(QtCore.QRect(10, 140, 221, 191))
+        self.listView.setGeometry(QtCore.QRect(10, 160, 221, 191))
         self.listView.setObjectName("listView")
         self.pushButton = QtWidgets.QPushButton(self.groupBox_2)
         self.pushButton.setGeometry(QtCore.QRect(160, 335, 75, 23))
@@ -89,6 +91,8 @@ class add_ui(object):
 #        self.pushButton_10 = QtWidgets.QPushButton(Dialog)
 #        self.pushButton_10.setGeometry(QtCore.QRect(520, 610, 75, 23))
 #        self.pushButton_10.setObjectName("pushButton_10")
+
+
         self.pushButton_2.clicked.connect(self.keyboard_setting)
         self.pushButton_3.clicked.connect(self.mouse_setting)
 
@@ -107,6 +111,7 @@ class add_ui(object):
         
         self.pushButton_3.setText(_translate("Dialog", "추가하기"))
         self.pushButton_10.setText(_translate("Dialog", "녹화하기"))
+        self.pushButton_12.setText(_translate("Dialog", "설정하기"))
 
         self.label.setText(_translate("Dialog", "마우스 설정"))
         self.label_2.setText(_translate("Dialog", "키보드 설정"))
@@ -134,6 +139,7 @@ class add_ui(object):
         ui = keyboard_ui.keyboard_ui()
         ui.setupUi(Dialog)
         Dialog.show()
+        Dialog.exec_()
 
     def mouse_setting(self):
         Dialog = QtWidgets.QDialog()
@@ -141,6 +147,7 @@ class add_ui(object):
         ui.setupUi(Dialog)
         Dialog.show()
         Dialog.exec_()
+        
         
 
 

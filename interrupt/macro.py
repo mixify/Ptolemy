@@ -63,7 +63,7 @@ class Macro:
         mouse.unhook_all()
         self.last_time = None
 
-    def readKeyboardEvent(self):
+    def readKeyboardEvent(self):# 이친구
         event = keyboard.read_event()
         return event.name
 
