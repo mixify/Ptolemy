@@ -28,7 +28,7 @@ class mouseHook:
             self.y_pos = event.y
             self.ui.label_4.setText(str(self.x_pos))
             self.ui.label_5.setText(str(self.y_pos))
-            print(self.x_pos)
+           # print(self.x_pos)
     
     def startHook(self):
         mouse.hook(self.MouseEvent)
@@ -45,8 +45,9 @@ class mouseHook:
 class mouse_ui(object):
     def __init__(self):
         self.mh = mouseHook(self)
-        self.macro = Macro.Macro(self)
+  #      self.macro = Macro.Macro(self)
      #     self.setupUi(self)
+        self.macro = Macro.Macro()
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
@@ -90,6 +91,7 @@ class mouse_ui(object):
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.comboBox.addItem("")
+        self.comboBox.addItem("")
         self.label_8 = QtWidgets.QLabel(Dialog)
         self.label_8.setGeometry(QtCore.QRect(10, 140, 81, 16))
         self.label_8.setObjectName("label_8")
@@ -99,6 +101,10 @@ class mouse_ui(object):
         self.buttonBox.setGeometry(QtCore.QRect(10, 180, 156, 23))
         self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName("buttonBox")
+        
+        self.buttonBox.accepted.connect(self.return_spinboxvalue)
+        self.buttonBox.rejected.connect(Dialog.reject)
+        
         self.retranslateUi(Dialog)
 
   #      self.label_4.mouseMoveEvent(self.label_4,mh.startHook)
@@ -116,16 +122,28 @@ class mouse_ui(object):
         self.label_7.setText(_translate("Dialog", "매크로 마우스 좌표 설정하기"))
         self.label_9.setText(_translate("Dialog", "x :"))
         self.label_10.setText(_translate("Dialog", "y :"))
-        self.comboBox.setItemText(0, _translate("Dialog", "좌클릭"))
-        self.comboBox.setItemText(1, _translate("Dialog", "우클릭"))
-        self.comboBox.setItemText(2, _translate("Dialog", "드레그 시작"))
-        self.comboBox.setItemText(3, _translate("Dialog", "드레그 끝"))
+        self.comboBox.setItemText(0, _translate("Dialog", "이동"))
+        self.comboBox.setItemText(1, _translate("Dialog", "좌클릭"))
+        self.comboBox.setItemText(2, _translate("Dialog", "우클릭"))
+        self.comboBox.setItemText(3, _translate("Dialog", "드레그 시작"))
+        self.comboBox.setItemText(4, _translate("Dialog", "드레그 끝"))
         self.label_8.setText(_translate("Dialog", "마우스 동작"))
-    
-    def return_spinboxvalue(self,Dialog):
-        a[0] = self.spinBox.value
-        a[1] = self.spinBox_2.value
-        return a
+
+    def return_spinboxvalue(self):
+        a=[]
+        a.append(self.spinBox.value())
+        a.append(self.spinBox_2.value())
+        b = str(self.comboBox.currentText())
+        if b=="이동":
+            self.macro.setMouseMove(a[0],a[1])
+        if b=="좌클릭":
+            self.macro.setMouseMove(a[0],a[1])
+            self.macro.setMouseClick("left")
+        if b=="우클릭":
+            self.macro.setMouseMove(a[0],a[1])
+            self.macro.setMouseClick("right")
+
+        self.macro.runMacro()
     
 if __name__ == "__main__":
 #    import sys

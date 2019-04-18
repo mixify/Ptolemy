@@ -66,7 +66,7 @@ class Macro:
         self.init_if_first()
         self.addEventData(1, 'up', event_name, self.last_time)
 
-    def setMouseClick(self, event_name):
+    def setMouseClick(self, event_name):#left, right
         self.setMouseDown(event_name)
         self.setMouseUp(event_name)
 
