@@ -11,11 +11,9 @@ class EventHook:
         if isinstance(event, mouse.MoveEvent):
             self.x_pos = event.x
             self.y_pos = event.y
-            print(self.x_pos, self.y_pos)
 
     def KeyboardEvent(self, event):
         self.key = event.name
-        print(self.key)
     
     def startMouseHook(self):
         mouse.hook(self.MouseEvent)
