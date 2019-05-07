@@ -144,7 +144,8 @@ class mouse_ui(object):
             self.macro.setMouseClick("right")
 
         self.macro.runMacro()
-    
+    def __del__(self):
+        self.mh.stopHook()
 if __name__ == "__main__":
 #    import sys
     app = QtWidgets.QApplication(sys.argv)

@@ -3,6 +3,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 #from PyQt5.QtWidgets import QMessageBox
 import keyboard
 import mouse
+import Macro
 
 class Ui_MainWindow(object):
 
@@ -279,7 +280,6 @@ class add_ui(object):
         Dialog.exec_()
         
         
-
 class mouseHook:
    # def __init__(self):
    #     self.x_pos = None
@@ -296,7 +296,7 @@ class mouseHook:
             self.y_pos = event.y
             self.ui.label_4.setText(str(self.x_pos))
             self.ui.label_5.setText(str(self.y_pos))
-            print(self.x_pos)
+           # print(self.x_pos)
     
     def startHook(self):
         mouse.hook(self.MouseEvent)
@@ -313,7 +313,9 @@ class mouseHook:
 class mouse_ui(object):
     def __init__(self):
         self.mh = mouseHook(self)
+  #      self.macro = Macro.Macro(self)
      #     self.setupUi(self)
+        self.macro = Macro.Macro()
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
@@ -357,6 +359,7 @@ class mouse_ui(object):
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.comboBox.addItem("")
+        self.comboBox.addItem("")
         self.label_8 = QtWidgets.QLabel(Dialog)
         self.label_8.setGeometry(QtCore.QRect(10, 140, 81, 16))
         self.label_8.setObjectName("label_8")
@@ -366,6 +369,10 @@ class mouse_ui(object):
         self.buttonBox.setGeometry(QtCore.QRect(10, 180, 156, 23))
         self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName("buttonBox")
+        
+        self.buttonBox.accepted.connect(self.return_spinboxvalue)
+        self.buttonBox.rejected.connect(Dialog.reject)
+        
         self.retranslateUi(Dialog)
 
   #      self.label_4.mouseMoveEvent(self.label_4,mh.startHook)
@@ -383,24 +390,62 @@ class mouse_ui(object):
         self.label_7.setText(_translate("Dialog", "매크로 마우스 좌표 설정하기"))
         self.label_9.setText(_translate("Dialog", "x :"))
         self.label_10.setText(_translate("Dialog", "y :"))
-        self.comboBox.setItemText(0, _translate("Dialog", "좌클릭"))
-        self.comboBox.setItemText(1, _translate("Dialog", "우클릭"))
-        self.comboBox.setItemText(2, _translate("Dialog", "드레그 시작"))
-        self.comboBox.setItemText(3, _translate("Dialog", "드레그 끝"))
+        self.comboBox.setItemText(0, _translate("Dialog", "이동"))
+        self.comboBox.setItemText(1, _translate("Dialog", "좌클릭"))
+        self.comboBox.setItemText(2, _translate("Dialog", "우클릭"))
+        self.comboBox.setItemText(3, _translate("Dialog", "드레그 시작"))
+        self.comboBox.setItemText(4, _translate("Dialog", "드레그 끝"))
         self.label_8.setText(_translate("Dialog", "마우스 동작"))
 
+    def return_spinboxvalue(self):
+        a=[]
+        a.append(self.spinBox.value())
+        a.append(self.spinBox_2.value())
+        b = str(self.comboBox.currentText())
+        if b=="이동":
+            self.macro.setMouseMove(a[0],a[1])
+        if b=="좌클릭":
+            self.macro.setMouseMove(a[0],a[1])
+            self.macro.setMouseClick("left")
+        if b=="우클릭":
+            self.macro.setMouseMove(a[0],a[1])
+            self.macro.setMouseClick("right")
+
+        self.macro.runMacro()
+    def __del__(self):
+        self.mh.stopHook()
+
+class EventHook:
+    def __init__(self,ui):
+        self.x_pos = None
+        self.y_pos = None
+        self.key = None
+        self.ui = ui
+    def KeyboardEvent(self, event):
+        self.key = event.name
+        print(str(self.key))
+        self.ui.label_2.setText(str(event.name))
+    
+    def startKeyboardHook(self):
+        keyboard.on_press(self.KeyboardEvent)
+    
+    def stopKeyboardHook(self):
+        keyboard.unhook_all()
 
 class keyboard_ui(object):
+    def __init__(self):
+        self.kh = EventHook(self)
+        self.macro = Macro.Macro()
+
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(195, 122)
         self.label = QtWidgets.QLabel(Dialog)
-        self.label.setGeometry(QtCore.QRect(10, 30, 56, 12))
+        self.label.setGeometry(QtCore.QRect(10, 30, 60, 20))
         self.label.setObjectName("label")
-        self.lineEdit = QtWidgets.QLineEdit(Dialog)
-        self.lineEdit.setGeometry(QtCore.QRect(60, 30, 101, 20))
-        self.lineEdit.setStatusTip("")
-        self.lineEdit.setObjectName("lineEdit")
+        self.label_2 = QtWidgets.QLabel(Dialog)
+        self.label_2.setGeometry(QtCore.QRect(70, 30, 60, 20))
+        self.label_2.setObjectName("label_2")
         self.buttonBox = QtWidgets.QDialogButtonBox(Dialog)
         self.buttonBox.setGeometry(QtCore.QRect(20, 80, 156, 23))
         self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
@@ -410,12 +455,17 @@ class keyboard_ui(object):
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
+        self.kh.startKeyboardHook()
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
         self.label.setText(_translate("Dialog", "키 입력"))
-        self.lineEdit.setText(_translate("Dialog", "키를 입력하세요"))
+        self.label_2.setText(_translate("Dialog", "키를 입력하세요"))
 
 
+
+
+    def __del__(self):
+        self.kh.stopKeyboardHook()
 
 
 
