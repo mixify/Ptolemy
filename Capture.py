@@ -7,7 +7,7 @@ def process_img(image):
     original_image = image
 
     ##convert to gray
-    processed_img = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    processed_img = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
 
     ##edge detection
     processed_img = cv2.Canny(processed_img, threshold1=200, threshold2=300)
