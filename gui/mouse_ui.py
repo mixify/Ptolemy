@@ -13,10 +13,6 @@ import keyboard
 import Macro
 
 class mouseHook:
-   # def __init__(self):
-   #     self.x_pos = None
-   #     self.y_pos = None
-
     def __init__(self,ui):
         self.ui = ui
         self.x_pos = None
@@ -26,8 +22,8 @@ class mouseHook:
         if isinstance(event, mouse.MoveEvent):
             self.x_pos = event.x
             self.y_pos = event.y
-            self.ui.label_4.setText(str(self.x_pos))
-            self.ui.label_5.setText(str(self.y_pos))
+            self.ui.mouse_x_pos.setText(str(self.x_pos))
+            self.ui.mouse_y_pos.setText(str(self.y_pos))
            # print(self.x_pos)
     
     def startHook(self):
@@ -61,12 +57,12 @@ class mouse_ui(object):
         self.label_3 = QtWidgets.QLabel(Dialog)
         self.label_3.setGeometry(QtCore.QRect(80, 40, 16, 16))
         self.label_3.setObjectName("label_3")
-        self.label_4 = QtWidgets.QLabel(Dialog)
-        self.label_4.setGeometry(QtCore.QRect(30, 40, 31, 16))
-        self.label_4.setObjectName("label_4")
-        self.label_5 = QtWidgets.QLabel(Dialog)
-        self.label_5.setGeometry(QtCore.QRect(100, 40, 31, 16))
-        self.label_5.setObjectName("label_5")
+        self.mouse_x_pos = QtWidgets.QLabel(Dialog)
+        self.mouse_x_pos.setGeometry(QtCore.QRect(30, 40, 31, 16))
+        self.mouse_x_pos.setObjectName("mouse_x_pos")
+        self.mouse_y_pos = QtWidgets.QLabel(Dialog)
+        self.mouse_y_pos.setGeometry(QtCore.QRect(100, 40, 31, 16))
+        self.mouse_y_pos.setObjectName("mouse_y_pos")
         self.label_7 = QtWidgets.QLabel(Dialog)
         self.label_7.setGeometry(QtCore.QRect(10, 70, 161, 16))
         self.label_7.setObjectName("label_7")
@@ -107,7 +103,7 @@ class mouse_ui(object):
         
         self.retranslateUi(Dialog)
 
-  #      self.label_4.mouseMoveEvent(self.label_4,mh.startHook)
+  #      self.mouse_x_pos.mouseMoveEvent(self.mouse_x_pos,mh.startHook)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
         
     def retranslateUi(self, Dialog):
@@ -117,8 +113,8 @@ class mouse_ui(object):
         self.label.setText(_translate("Dialog", "현재 마우스 좌표"))
         self.label_2.setText(_translate("Dialog", "x :"))
         self.label_3.setText(_translate("Dialog", "y :"))
-        #self.label_4.setText(_translate("Dialog", str(self.mh.x_pos)))
-        #self.label_5.setText(_translate("Dialog", str(self.mh.y_pos)))
+        #self.mouse_x_pos.setText(_translate("Dialog", str(self.mh.x_pos)))
+        #self.mouse_y_pos.setText(_translate("Dialog", str(self.mh.y_pos)))
         self.label_7.setText(_translate("Dialog", "매크로 마우스 좌표 설정하기"))
         self.label_9.setText(_translate("Dialog", "x :"))
         self.label_10.setText(_translate("Dialog", "y :"))

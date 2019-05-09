@@ -19,7 +19,7 @@ class EventHook:
     def KeyboardEvent(self, event):
         self.key = event.name
         print(str(self.key))
-        self.ui.label_2.setText(str(event.name))
+        self.ui.input_key.setText(str(event.name))
     
     def startKeyboardHook(self):
         keyboard.on_press(self.KeyboardEvent)
@@ -38,9 +38,9 @@ class keyboard_ui(object):
         self.label = QtWidgets.QLabel(Dialog)
         self.label.setGeometry(QtCore.QRect(10, 30, 60, 20))
         self.label.setObjectName("label")
-        self.label_2 = QtWidgets.QLabel(Dialog)
-        self.label_2.setGeometry(QtCore.QRect(70, 30, 60, 20))
-        self.label_2.setObjectName("label_2")
+        self.input_key = QtWidgets.QLabel(Dialog)
+        self.input_key.setGeometry(QtCore.QRect(70, 30, 60, 20))
+        self.input_key.setObjectName("input_key")
         self.buttonBox = QtWidgets.QDialogButtonBox(Dialog)
         self.buttonBox.setGeometry(QtCore.QRect(20, 80, 156, 23))
         self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
@@ -54,7 +54,7 @@ class keyboard_ui(object):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
         self.label.setText(_translate("Dialog", "키 입력"))
-        self.label_2.setText(_translate("Dialog", "키를 입력하세요"))
+        self.input_key.setText(_translate("Dialog", "키를 입력하세요"))
 
 
 
