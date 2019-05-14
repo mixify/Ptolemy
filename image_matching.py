@@ -36,13 +36,13 @@ def get_state():
 
     print('{} : '.format(time.time() - last_time))
     last_time = time.time()
-    cv2.imshow('window', cv2.cvtColor(printScreen, cv2.COLOR_BGR2RGB))
+    # cv2.imshow('window', cv2.cvtColor(printScreen, cv2.COLOR_BGR2RGB))
 
-    if cv2.waitKey(25) & 0xFF == ord('q'):
-        cv2.destroyAllWindows()
-        break
+    # if cv2.waitKey(25) & 0xFF == ord('q'):
+    #     cv2.destroyAllWindows()
+    #     break
 
-def matrixlize(shrinkage = 10, img):
+def matrixlize(img, shrinkage = 10):
     height, width = img.shape[:2]
-    return np.zeros((width/10,height/10))
+    return np.zeros((width/shrinkage,height/shrinkage))
 
