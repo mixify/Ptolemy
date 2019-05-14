@@ -13,18 +13,18 @@ def match_image(thr, background):
 
     loc = np.where(res >= thr)
     mat_background = matrixlize(img)
+    value = 3
+    for pt in zip(*loc[::-1]):
+        mat_background[pt[0]:shrinklize(w),pt[1]:shrinklize(h)] += 3
+
     print(mat_background)
     print(mat_background.shape)
-    # for pt in zip(*loc[::-1]):
     #     ;
         # cv2.rectangle(img, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
     return img
 
-<<<<<<< HEAD
-similiarity = 0.9
-=======
 similarity = 0.9
->>>>>>> 13eddd1f1277107ac9155b296c0c0e29c21272c6
+
 X = 0
 Y = 140
 width = 950
@@ -49,4 +49,7 @@ def get_state():
 def matrixlize(img, shrinkage = 10):
     height, width = img.shape[:2]
     return np.zeros((int(width/shrinkage),int(height/shrinkage)))
+
+def shrinklize(val, shrinkage = 10):
+    return int(val/shrinkage)
 get_state()
