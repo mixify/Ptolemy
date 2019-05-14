@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-%matplotlib inline
+# %matplotlib inline
 import gym
 
 from skimage import transform # Help us to preprocess the frames
@@ -15,9 +15,10 @@ Transition = namedtuple(
 
 # 상수 정의
 # ENV = 'CartPole-v0'  # 태스크 이름
-GAMMA = 0.99  # 시간할인율
-MAX_STEPS = 200  # 1에피소드 당 최대 단계 수
-NUM_EPISODES = 500  # 최대 에피소드 수
+# Hyper parameters
+# GAMMA = 0.99  # 시간할인율
+# MAX_STEPS = 200  # 1에피소드 당 최대 단계 수
+# NUM_EPISODES = 500  # 최대 에피소드 수
 
 class ReplayMemory:
 
@@ -49,35 +50,33 @@ class ReplayMemory:
 import torch.nn as nn
 import torch.nn.functional as F
 
+epsilon_start = 1.0
+epsilon_final = 0.01
+epsilon_decay = 500
 
-class Net(nn.Module):
+class DQN(nn.Module):
+    def __init__(self, num_inputs, num_actions):
+        super(DQN, self).__init__()
 
-    def __init__(self, n_in, n_mid, n_out):
-        super(Net, self).__init__()
-        self.input_shape = n_in
-
-        self.features = nn.Sequential(
-            nn.Conv2d(input_shape[0], 32, kernel_size=8, stride=4),
+        self.layers = nn.Sequential(
+            nn.Linear(env.observation_space.shape[0], 128),
             nn.ReLU(),
-            nn.Conv2d(32, 64, kernel_size=4, stride=2),
+            nn.Linear(128, 128),
             nn.ReLU(),
-            nn.Conv2d(64, 64, kernel_size=3, stride=1),
-            nn.ReLU()
+            nn.Linear(128, env.action_space.n)
         )
-        self.fc = nn.Sequential(
-            nn.Linear(self.feature_size(), 512),
-            nn.ReLU(),
-            nn.Linear(512, self.num_actions)
-        )
+
     def forward(self, x):
-        x = self.features(x)
-        x = x.view(x.size(0),-1)
-        x = self.fc(x)
-        return x
-    def feature_size(self):
-        return self.features(autograd.Variable(torch.zeros(1, *self.input_shape))).view(1, -1).size(1)
+        return self.layers(x)
 
-
+    def act(self, state, epsilon):
+        if random.random() > epsilon:
+            state   = Variable(torch.FloatTensor(state).unsqueeze(0), volatile=True)
+            q_value = self.forward(state)
+            action  = q_value.max(1)[1].data[0]
+        else:
+            action = random.randrange(env.action_space.n)
+        return action
 # 에이전트의 두뇌 역할을 하는 클래스, DDQN을 실제 수행한다
 
 import random
@@ -89,6 +88,14 @@ import torch.nn.functional as F
 BATCH_SIZE = 32
 CAPACITY = 10000
 
+model = DQN(env.observation_space.shape[0], env.action_space.n)
+
+if USE_CUDA:
+    model = model.cuda()
+
+optimizer = optim.Adam(model.parameters())
+
+replay_buffer = ReplayBuffer(1000)
 
 class Brain:
     def __init__(self, input_shape, num_actions):
@@ -357,5 +364,3 @@ class Environment:
                 episode_final = True  # 다음 에피소드에서 애니메이션을 생성
 
 # 실행 엔트리 포인트
-cartpole_env = Environment()
-cartpole_env.run()
