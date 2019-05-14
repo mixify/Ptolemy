@@ -15,9 +15,16 @@ def match_image(thr, background):
     mat_background = matrixlize(img)
     value = 3
     for pt in zip(*loc[::-1]):
-        mat_background[pt[0]:shrinklize(w),pt[1]:shrinklize(h)] += 3
+        x = shrinklize(pt[0])
+        y = shrinklize(pt[1])
+        shrinked_w = shrinklize(w)
+        shrinked_h = shrinklize(h)
+        mat_background[x:x+shrinked_w,y:y+shrinked_h] += 3
+        cv2.rectangle(img, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
 
-    print(mat_background)
+    print(shrinklize(pt[0]),shrinklize(w))
+    print(pt[1],shrinklize(h))
+    print(mat_background[10:20,33:40])
     print(mat_background.shape)
     #     ;
         # cv2.rectangle(img, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
@@ -40,10 +47,10 @@ def get_state():
 
     print('{} : '.format(time.time() - last_time))
     last_time = time.time()
-    # cv2.imshow('window', cv2.cvtColor(printScreen, cv2.COLOR_BGR2RGB))
+    cv2.imshow('window', cv2.cvtColor(printScreen, cv2.COLOR_BGR2RGB))
 
-    # if cv2.waitKey(25) & 0xFF == ord('q'):
-    #     cv2.destroyAllWindows()
+    if cv2.waitKey(25) & 0xFF == ord('q'):
+        cv2.destroyAllWindows()
     #     break
 
 def matrixlize(img, shrinkage = 10):
