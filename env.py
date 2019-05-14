@@ -22,4 +22,6 @@ def env():
         next_state = 0#Capture
         return (next_state, reward, done)
 
+    def reset():
+
 

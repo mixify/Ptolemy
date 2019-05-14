@@ -20,7 +20,7 @@ def match_image(thr, background):
         # cv2.rectangle(img, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
     return img
 
-similiarity  = 0.9
+similiarity = 0.9
 X = 0
 Y = 140
 width = 950
