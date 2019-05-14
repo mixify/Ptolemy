@@ -14,6 +14,7 @@ def match_image(thr, background):
     loc = np.where(res >= thr)
     mat_background = matrixlize(img)
     print(mat_background)
+    print(mat_background.shape)
     # for pt in zip(*loc[::-1]):
     #     ;
         # cv2.rectangle(img, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
@@ -42,6 +43,6 @@ def get_state():
         break
 
 def matrixlize(shrinkage = 10, img):
-    height, width = img.shape(:2)
+    height, width = img.shape[:2]
     return np.zeros((width/10,height/10))
 
