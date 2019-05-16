@@ -19,13 +19,13 @@ def match_image(thr, background):
         y = shrinklize(pt[1])
         shrinked_w = shrinklize(w)
         shrinked_h = shrinklize(h)
-        mat_background[x:x+shrinked_w,y:y+shrinked_h] += 3
+        mat_background[x:x+shrinked_w,y:y+shrinked_h] += value
         cv2.rectangle(img, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
 
-    print(shrinklize(pt[0]),shrinklize(w))
-    print(pt[1],shrinklize(h))
-    print(mat_background[10:20,33:40])
-    print(mat_background.shape)
+    # print(shrinklize(pt[0]),shrinklize(w))
+    # print(pt[1],shrinklize(h))
+    # print(mat_background[10:20,33:40])
+    # print(mat_background.shape)
     #     ;
         # cv2.rectangle(img, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
     return img

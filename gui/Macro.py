@@ -30,7 +30,7 @@ class Macro:
 
     def loadScript(self, fname):
         self.event_data = np.genfromtxt(fname, encoding='ascii', dtype=None, delimiter=',')
-    
+
     def saveScript(self, fname):
         f = open(fname,'wt', encoding='UTF-8')
         text=''
@@ -57,7 +57,7 @@ class Macro:
     def setKeyPress(self, event_name):
         self.setKeyDown(event_name)
         self.setKeyUp(event_name)
-    
+
     def setKeyDown(self, event_name):
         self.init_if_first()
         self.addEventData(1, 'down', event_name, self.last_time)
@@ -101,7 +101,7 @@ class Macro:
     def runMacro(self):
         for (option, event_type, event_name, delay) in self.event_data:
             time.sleep(delay)
-            
+
             if option == 1:
                 key = event_name
                 keyboard.press(key) if event_type == 'down' else keyboard.release(key)
@@ -112,7 +112,7 @@ class Macro:
                     mouse.press(event_name)
             elif option == 3:
                 mouse.move(int(event_type), int(event_name))
-                
+
 
 if __name__ == '__main__':
     macro = Macro()
