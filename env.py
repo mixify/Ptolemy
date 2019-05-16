@@ -44,7 +44,7 @@ class env():
     def step(self,action_num):
 
         if(action_num>0):#do nothing if no op
-            runMacro(actions[action_num])
+            runMacro(self.actions[action_num])
 
         score = 0
         '''
@@ -65,6 +65,7 @@ class env():
         return (next_state, reward, done)
 
     def reset(self):
+        self.pre_score = 0
         print('reset~~~')
 
 # e = env()
