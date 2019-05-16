@@ -1,25 +1,61 @@
 from interrupt import Macro as mc
+import image_matching as im
 class env():
 
-    macros = [0]
-    pre_score = 0
-
     def __init__(self):
-        macros = [0]
+        self.actions = []
+        self.actions.append(0)
+        self.pre_score = 0
+        '''
+        Test codes~~~~~~
+        this should be changed to variables version
+        def __init__(self,observations which is cv image matched data,actions which is macros):
+        '''
+        ### observation_space
+        observation_space = im.get_state()
+        ### actions
 
-    def set_actions(self,macro):
+        macros = []
+        macro1 = mc.Macro()
+        # new_macro.setDelay(3)
+        macro1.setKeyPress('space')
+        macros.append(macro1)
+
+        macro2 = mc.Macro()
+        # new_macro.setDelay(3)
+        macro2.setKeyPress('down')
+        macros.append(macro2)
+
+
+
+        '''
+        test codes
+        end here
+        '''
+        self.actions = macros
+
+    def set_actions(self,macros):
         '''
         set actions
         for test this is temporary func
         '''
+<<<<<<< HEAD
         new_macro = mc.Macro()
+        new_macro.setDelay(4)
         new_macro.setKeyPress('space')
+      
         self.macros.append(new_macro)
 
-    def step(self,action):
 
-        if(action>0):#do nothing if no op
-            runMacro(macros[action])
+    def step(self,action):
+=======
+        self.actions = macros
+
+    def step(self,action_num):
+>>>>>>> 4c60ae30343ead2d7bbc950351335f4098f57906
+
+        if(action_num>0):#do nothing if no op
+            runMacro(actions[action_num])
 
         score = 0
         '''
@@ -42,6 +78,6 @@ class env():
     def reset(self):
         print('reset~~~')
 
-e = env()
-e.set_actions('a')
-e.macros[1].runMacro()
+# e = env()
+# e.set_actions('a')
+# e.actions[1].runMacro()
