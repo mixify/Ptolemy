@@ -39,18 +39,18 @@ height = 900
 
 def get_state():
     last_time = time.time()
-    # while(True):
-    background_img_pil = ImageGrab.grab(bbox = (X, Y, width, height))
-    background_img_cv = cv2.cvtColor(np.array(background_img_pil), cv2.COLOR_RGB2BGR)
-    img, mat = match_image(similarity, background_img_cv)
-    printScreen = np.array(img)
+    for i in range(4):
+        background_img_pil = ImageGrab.grab(bbox = (X, Y, width, height))
+        background_img_cv = cv2.cvtColor(np.array(background_img_pil), cv2.COLOR_RGB2BGR)
+        img, mat = match_image(similarity, background_img_cv)
+        printScreen = np.array(img)
 
-    print('{} : '.format(time.time() - last_time))
-    last_time = time.time()
-    cv2.imshow('window', cv2.cvtColor(printScreen, cv2.COLOR_BGR2RGB))
+        print('{} : '.format(time.time() - last_time))
+        last_time = time.time()
+        cv2.imshow('window', cv2.cvtColor(printScreen, cv2.COLOR_BGR2RGB))
 
-    if cv2.waitKey(25) & 0xFF == ord('q'):
-        cv2.destroyAllWindows()
+        if cv2.waitKey(25) & 0xFF == ord('q'):
+            cv2.destroyAllWindows()
     #     break
     return mat
 

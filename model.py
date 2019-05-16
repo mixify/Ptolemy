@@ -1,7 +1,6 @@
 import math, random
 
 import numpy as np
-
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -9,6 +8,7 @@ import torch.autograd as autograd
 import torch.nn.functional as F
 
 import env
+env = env.env()
 USE_CUDA = torch.cuda.is_available()
 Variable = lambda *args, **kwargs: autograd.Variable(*args, **kwargs).cuda() if USE_CUDA else autograd.Variable(*args, **kwargs)
 
@@ -71,6 +71,7 @@ class CnnDQN(nn.Module):
             action = random.randrange(env.action_space.n)
         return action
 
+print('sibal', env.pre_score)
 current_model = CnnDQN(env.observation_space.shape, len(env.actions))
 target_model  = CnnDQN(env.observation_space.shape, len(env.actions))
 

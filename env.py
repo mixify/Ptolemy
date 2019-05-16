@@ -12,7 +12,7 @@ class env():
         def __init__(self,observations which is cv image matched data,actions which is macros):
         '''
         ### observation_space
-        observation_space = im.get_state()
+        self.observation_space = im.get_state()
         ### actions
 
         macros = []
