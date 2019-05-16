@@ -26,6 +26,7 @@ class env():
         macro2.setKeyPress('down')
         macros.append(macro2)
 
+<<<<<<< HEAD
 
 
         '''
@@ -34,11 +35,22 @@ class env():
         '''
         self.actions = macros
 
+=======
+
+
+        '''
+        test codes
+        end here
+        '''
+        self.actions = macros
+
+>>>>>>> 4c60ae30343ead2d7bbc950351335f4098f57906
     def set_actions(self,macros):
         '''
         set actions
         for test this is temporary func
         '''
+<<<<<<< HEAD
 <<<<<<< HEAD
         new_macro = mc.Macro()
         new_macro.setDelay(4)
@@ -48,6 +60,11 @@ class env():
 
 
     def step(self,action):
+=======
+        self.actions = macros
+
+    def step(self,action_num):
+>>>>>>> 4c60ae30343ead2d7bbc950351335f4098f57906
 =======
         self.actions = macros
 
