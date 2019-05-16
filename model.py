@@ -68,7 +68,7 @@ class CnnDQN(nn.Module):
             q_value = self.forward(state)
             action  = q_value.max(1)[1].data[0]
         else:
-            action = random.randrange(env.action_space.n)
+            action = random.randrange(len(env.action_space))
         return action
 
 print('sibal', env.pre_score)
