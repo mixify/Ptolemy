@@ -26,7 +26,6 @@ class env():
         macro2.setKeyPress('down')
         macros.append(macro2)
 
-<<<<<<< HEAD
 
 
         '''
@@ -35,46 +34,14 @@ class env():
         '''
         self.actions = macros
 
-=======
-
-
-        '''
-        test codes
-        end here
-        '''
-        self.actions = macros
-
->>>>>>> 4c60ae30343ead2d7bbc950351335f4098f57906
     def set_actions(self,macros):
         '''
         set actions
         for test this is temporary func
         '''
-<<<<<<< HEAD
-<<<<<<< HEAD
-        new_macro = mc.Macro()
-        new_macro.setDelay(4)
-        new_macro.setKeyPress('space')
-      
-        self.macros.append(new_macro)
-
-
-    def step(self,action):
-=======
         self.actions = macros
 
     def step(self,action_num):
->>>>>>> 4c60ae30343ead2d7bbc950351335f4098f57906
-=======
-        self.actions = macros
-
-    def step(self,action_num):
->>>>>>> 4c60ae30343ead2d7bbc950351335f4098f57906
-
-
-        ### should really think about how game over is recongnized
-        # done, next_state = get_state()#Capture
-        ### should really think about how game over is recongnized
 
         if(action_num>0):#do nothing if no op
             runMacro(actions[action_num])
@@ -98,7 +65,6 @@ class env():
         return (next_state, reward, done)
 
     def reset(self):
-        time_step = 0
         print('reset~~~')
 
 # e = env()
