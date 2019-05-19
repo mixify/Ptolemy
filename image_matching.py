@@ -3,10 +3,9 @@ import numpy as np
 import time
 import cv2
 
-def match_image(thr, background):
+def match_image(thr, background, template):
     img = background
     img_gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-    template = cv2.imread('target.png', cv2.IMREAD_GRAYSCALE) # let's change to memory in the future
     w, h = template.shape[::-1]
 
     res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
@@ -42,10 +41,11 @@ height = R_Y - L_Y
 def get_state():
     last_time = time.time()
     state = np.zeros((width//10, height//10))
+    template = cv2.imread('target.png', cv2.IMREAD_GRAYSCALE) # let's change to memory in the future
     for i in range(4):
         background_img_pil = ImageGrab.grab(bbox = (L_X, L_Y, R_X, R_Y))
         background_img_cv = cv2.cvtColor(np.array(background_img_pil), cv2.COLOR_RGB2BGR)
-        img, mat = match_image(similarity, background_img_cv)
+        img, mat = match_image(similarity, background_img_cv, template)
         printScreen = np.array(img)
 
         # print('{} : '.format(time.time() - last_time))
