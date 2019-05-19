@@ -32,10 +32,10 @@ def match_image(thr, background, template):
 
 similarity = 0.9
 
-L_X = 530
-L_Y = 260
-R_X = 1150
-R_Y = 462
+L_X = 589
+L_Y = 147
+R_X = 1069
+R_Y = 785
 
 width = R_X - L_X
 height = R_Y - L_Y
