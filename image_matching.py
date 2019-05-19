@@ -39,7 +39,7 @@ height = 200
 
 def get_state():
     last_time = time.time()
-    state = np.zeros(width/10, height/10)
+    state = np.zeros(width//10, height//10)
     for i in range(4):
         background_img_pil = ImageGrab.grab(bbox = (X, Y, width, height))
         background_img_cv = cv2.cvtColor(np.array(background_img_pil), cv2.COLOR_RGB2BGR)
