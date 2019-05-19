@@ -27,9 +27,9 @@ def match_image(thr, background, templates):
 
     # print(shrinklize(pt[0]),shrinklize(w))
     # print(pt[1],shrinklize(h))
-    print("sibal")
-    print(mat_background[:])
-    print(mat_background.shape)
+    # print("sibal")
+    # print(mat_background[:])
+    # print(mat_background.shape)
     #     ;
         # cv2.rectangle(img, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
     return img, mat_background
@@ -57,6 +57,8 @@ def get_state():
         img, mat = match_image(similarity, background_img_cv, templates)
         printScreen = np.array(img)
 
+        if(i%2000 == 0):
+            print(mat[:])
         # print('{} : '.format(time.time() - last_time))
         last_time = time.time()
         # cv2.imshow('window', cv2.cvtColor(printScreen, cv2.COLOR_BGR2RGB))
