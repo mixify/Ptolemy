@@ -37,6 +37,8 @@ L_Y = 260
 R_X = 1150
 R_Y = 462
 
+width = R_X - L_X
+height = R_Y - L_Y
 def get_state():
     last_time = time.time()
     state = np.zeros((width//10, height//10))
