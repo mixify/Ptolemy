@@ -25,7 +25,7 @@ def match_image(thr, background, template):
     # print(pt[1],shrinklize(h))
     print("sibal")
     print(mat_background[10:20,33:40])
-    # print(mat_background.shape)
+    print(mat_background.shape)
     #     ;
         # cv2.rectangle(img, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
     return img, mat_background
