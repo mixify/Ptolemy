@@ -6,9 +6,9 @@ import cv2
 def match_image(thr, background, templates):
     img = background
     img_gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-    w, h = template.shape[::-1]
 
     for num,template in enumerate(templates):
+        w, h = template.shape[::-1]
         res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
 
         loc = np.where(res >= thr)
