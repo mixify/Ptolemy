@@ -24,7 +24,7 @@ def match_image(thr, background):
 
     # print(shrinklize(pt[0]),shrinklize(w))
     # print(pt[1],shrinklize(h))
-    # print(mat_background[10:20,33:40])
+    print(mat_background[10:20,33:40])
     # print(mat_background.shape)
     #     ;
         # cv2.rectangle(img, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
@@ -32,27 +32,28 @@ def match_image(thr, background):
 
 similarity = 0.9
 
-X = 0
-Y = 140
-width = 950
-height = 900
+X = 530
+Y = 260
+width = 620
+height = 200
 
 def get_state():
     last_time = time.time()
+    state = np.zeros(width/10,height/10)
     for i in range(4):
         background_img_pil = ImageGrab.grab(bbox = (X, Y, width, height))
         background_img_cv = cv2.cvtColor(np.array(background_img_pil), cv2.COLOR_RGB2BGR)
         img, mat = match_image(similarity, background_img_cv)
         printScreen = np.array(img)
 
-        print('{} : '.format(time.time() - last_time))
+        # print('{} : '.format(time.time() - last_time))
         last_time = time.time()
-        cv2.imshow('window', cv2.cvtColor(printScreen, cv2.COLOR_BGR2RGB))
-
-        if cv2.waitKey(25) & 0xFF == ord('q'):
-            cv2.destroyAllWindows()
+        # cv2.imshow('window', cv2.cvtColor(printScreen, cv2.COLOR_BGR2RGB))
+        #
+        # if cv2.waitKey(25) & 0xFF == ord('q'):
+        #     cv2.destroyAllWindows()
     #     break
-    return mat
+    return state
 
 def matrixlize(img, shrinkage = 10):
     height, width = img.shape[:2]

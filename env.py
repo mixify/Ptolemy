@@ -13,6 +13,9 @@ class env():
         '''
         ### observation_space
         self.observation_space = im.get_state()
+        self.time_step = 0;
+        self.best_time_step = 0;
+        self.is_alive = True
         ### actions
 
         macros = []
@@ -34,15 +37,22 @@ class env():
         '''
         self.actions = macros
 
-    def set_actions(self,macros):
+    def set_actions(self, macros):
         '''
         set actions
         for test this is temporary func
         '''
         self.actions = macros
 
-    def step(self,action_num):
+    def step(self, action_num):
 
+
+        ### should really think about how game over is recongnized
+        # self.is_alive, next_state = get_state()#Capture
+        ### should really think about how game over is recongnized
+
+
+        self.time_step+=1
         if(action_num>0):#do nothing if no op
             runMacro(self.actions[action_num])
 
@@ -50,22 +60,31 @@ class env():
         '''
         score = get_score_from_ocr
         '''
-        if(pre_score < score):
+        self.best_time_step = max(self.best_time_step,time_step)
+        if(self.time_step>self.best_time_step):
             reward = 1
-        elif(pre_score == score):
-            reward = 0
+        elif(self.is_alive==False):
+            reward = -3
         else:
-            reward = -1
+            reward = 0
+        # if(pre_score < score):
+        #     reward = 1
+        # elif(pre_score == score):
+        #     reward = 0
+        # else:
+        #     reward = -1
 
-        pre_score = score;
+        # pre_score = score;
 
         reward = 0 # get from ocr
 
         done, next_state = get_state()#Capture
-        return (next_state, reward, done)
+        return (next_state, reward, self.is_alive)
 
     def reset(self):
-        self.pre_score = 0
+#         self.pre_score = 0
+        self.time_step = 0
+        self.is_alive = true
         print('reset~~~')
 
 # e = env()
