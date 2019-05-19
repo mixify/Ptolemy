@@ -38,10 +38,12 @@ R_Y = 462
 
 width = R_X - L_X
 height = R_Y - L_Y
+print(width,height)
+print("sibal")
+template = cv2.imread('target.png', cv2.IMREAD_GRAYSCALE) # let's change to memory in the future
 def get_state():
     last_time = time.time()
     state = np.zeros((width//10, height//10))
-    template = cv2.imread('target.png', cv2.IMREAD_GRAYSCALE) # let's change to memory in the future
     for i in range(4):
         background_img_pil = ImageGrab.grab(bbox = (L_X, L_Y, R_X, R_Y))
         background_img_cv = cv2.cvtColor(np.array(background_img_pil), cv2.COLOR_RGB2BGR)
