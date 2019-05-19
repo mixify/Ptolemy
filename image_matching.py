@@ -23,6 +23,7 @@ def match_image(thr, background, template):
 
     # print(shrinklize(pt[0]),shrinklize(w))
     # print(pt[1],shrinklize(h))
+    print("sibal")
     print(mat_background[10:20,33:40])
     # print(mat_background.shape)
     #     ;
@@ -39,7 +40,6 @@ R_Y = 462
 width = R_X - L_X
 height = R_Y - L_Y
 print(width,height)
-print("sibal")
 template = cv2.imread('target.png', cv2.IMREAD_GRAYSCALE) # let's change to memory in the future
 def get_state():
     last_time = time.time()
