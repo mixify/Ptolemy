@@ -1,20 +1,22 @@
 from PIL import ImageGrab
 import numpy as np
 import time
+import sys
 import cv2
 
+np.set_printoptions(threshold=sys.maxsize)
 def match_image(thr, background, templates):
     img = background
     img_gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
 
+    mat_background = matrixlize(img)
     for num,template in enumerate(templates):
         w, h = template.shape[::-1]
         res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
 
         loc = np.where(res >= thr)
-        mat_background = matrixlize(img)
         if(num==0):
-            value = 1
+            value = 2
         else:
             value = -1
         for pt in zip(*loc[::-1]):
@@ -28,7 +30,6 @@ def match_image(thr, background, templates):
     # print(shrinklize(pt[0]),shrinklize(w))
     # print(pt[1],shrinklize(h))
     # print("sibal")
-    # print(mat_background[:])
     # print(mat_background.shape)
     #     ;
         # cv2.rectangle(img, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
@@ -36,10 +37,10 @@ def match_image(thr, background, templates):
 
 similarity = 0.9
 
-L_X = 573
-L_Y = 167
-R_X = 1055
-R_Y = 805
+L_X = 24
+L_Y = 373
+R_X = 641
+R_Y = 507
 
 width = R_X - L_X
 height = R_Y - L_Y
@@ -57,8 +58,9 @@ def get_state():
         img, mat = match_image(similarity, background_img_cv, templates)
         printScreen = np.array(img)
 
-        if(i%2000 == 0):
-            print(mat[:])
+        if(i%30 == 0):
+            print(mat[:].T)
+            print('----------------------')
         # print('{} : '.format(time.time() - last_time))
         last_time = time.time()
         # cv2.imshow('window', cv2.cvtColor(printScreen, cv2.COLOR_BGR2RGB))
@@ -68,10 +70,10 @@ def get_state():
     #     break
     return state
 
-def matrixlize(img, shrinkage = 20):
+def matrixlize(img, shrinkage = 15):
     height, width = img.shape[:2]
     return np.zeros((int(width/shrinkage),int(height/shrinkage)))
 
-def shrinklize(val, shrinkage = 20):
+def shrinklize(val, shrinkage = 15):
     return int(val/shrinkage)
 get_state()
