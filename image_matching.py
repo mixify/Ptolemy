@@ -16,6 +16,8 @@ def match_image(thr, background, template):
     for pt in zip(*loc[::-1]):
         x = shrinklize(pt[0])
         y = shrinklize(pt[1])
+        print(x)
+        print(y)
         shrinked_w = shrinklize(w)
         shrinked_h = shrinklize(h)
         mat_background[x:x+shrinked_w,y:y+shrinked_h] += value
