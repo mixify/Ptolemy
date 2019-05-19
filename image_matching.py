@@ -32,16 +32,16 @@ def match_image(thr, background):
 
 similarity = 0.9
 
-X = 530
-Y = 260
-width = 620
-height = 200
+L_X = 530
+L_Y = 260
+R_X = 1150
+R_Y = 462
 
 def get_state():
     last_time = time.time()
     state = np.zeros((width//10, height//10))
     for i in range(4):
-        background_img_pil = ImageGrab.grab(bbox = (X, Y, width, height))
+        background_img_pil = ImageGrab.grab(bbox = (L_X, L_Y, R_X, R_Y))
         background_img_cv = cv2.cvtColor(np.array(background_img_pil), cv2.COLOR_RGB2BGR)
         img, mat = match_image(similarity, background_img_cv)
         printScreen = np.array(img)
