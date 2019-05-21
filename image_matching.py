@@ -67,7 +67,7 @@ def get_state():
     for i in range(100000):
         background_img_pil = ImageGrab.grab(bbox = (L_X, L_Y, R_X, R_Y))
         background_img_cv = cv2.cvtColor(np.array(background_img_pil), cv2.COLOR_RGB2BGR)
-        img, mat = match_image(similarity, background_img_cv, factor, game_over)
+        alive, img, mat = match_image(similarity, background_img_cv, factor, game_over)
         printScreen = np.array(img)
 
         if(i%30 == 0):
