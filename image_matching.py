@@ -33,11 +33,14 @@ def match_image(thr, background, factor, game_over):
             shrinked_h = shrinklize(h)+1
             mat_background[x:x+shrinked_w,y:y+shrinked_h] += value
 
-    #### for num, template in enumerate(game_over):
+    for num, template in enumerate(game_over):
     ####     w, h = template.shape[::-1]
-        # res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
+        res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
         #
-        # loc = np.where(res >= thr)
+        loc = np.where(res >= thr)
+        for pt in zip(loc[1], loc[0]):
+            print('game over')
+            alive = False
         # if(loc)
 
             # cv2.rectangle(img, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
@@ -100,3 +103,4 @@ def matrixlize(img, shrinkage = 30):
 def shrinklize(val, shrinkage = 30):
     return int(val/shrinkage)
 get_state()
+
