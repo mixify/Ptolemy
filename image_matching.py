@@ -17,7 +17,7 @@ def match_image(thr, background, factor, game_over):
         res = cv2.matchTemplate(img_gray, template, cv2.TM_SQDIFF_NORMED)
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
 
-        min_thresh = (min_val + 1e-6) * 1.5
+        # min_thresh = (min_val + 1e-6) * 1.5
         loc = np.where(res<=min_thresh)
         # loc = np.where(res >= thr)
         # print(loc)
