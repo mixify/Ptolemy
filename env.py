@@ -33,7 +33,7 @@ class env():
         test codes
         end here
         '''
-        self.actions = macros
+        self.actions.append(macro1)
 
     def set_actions(self, macros):
         '''
@@ -51,14 +51,15 @@ class env():
 
 
         self.time_step+=1
+        print(action_num)
         if(action_num>0):#do nothing if no op
-            runMacro(self.actions[action_num])
+            self.actions[action_num].runMacro()
 
         score = 0
         '''
         score = get_score_from_ocr
         '''
-        self.best_time_step = max(self.best_time_step,time_step)
+        self.best_time_step = max(self.best_time_step,self.time_step)
         if(self.time_step>self.best_time_step):
             reward = 1
         elif(self.is_alive==False):
@@ -76,16 +77,16 @@ class env():
 
         reward = 0 # get from ocr
 
-        done, next_state = get_state()#Capture
-        return (next_state, reward, done)
+        done, next_state = im.get_state()#Capture
+        return (next_state, reward, done, 0)
 
     def reset(self):
 #         self.pre_score = 0
-        runMacro(self.actions[1])
-        runMacro(self.actions[1])
+        self.actions[1].runMacro()
+        self.actions[1].runMacro()
         self.time_step = 0
-        self.is_alive = true
-        _, state = get_state()
+        self.is_alive = True
+        _, state = im.get_state()
         return state
 
 # e = env()

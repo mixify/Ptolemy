@@ -95,7 +95,7 @@ def get_state():
         # if cv2.waitKey(25) & 0xFF == ord('q'):
         #     cv2.destroyAllWindows()
     #     break
-    print(state[:,:,:].T)
+    #print(state[:,:,:].T)
     return done, state
 
 def get_shape():

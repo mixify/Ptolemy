@@ -39,11 +39,11 @@ class CnnDQN(nn.Module):
         self.num_actions = num_actions
 
         self.features = nn.Sequential(
-            nn.Conv2d(input_shape[0], 32, kernel_size=8, stride=4),
+            nn.Conv2d(input_shape[0], 32, kernel_size=4, stride=4),
             nn.ReLU(),
-            nn.Conv2d(32, 64, kernel_size=4, stride=2),
+            nn.Conv2d(32, 64, kernel_size=1, stride=2),
             nn.ReLU(),
-            nn.Conv2d(64, 64, kernel_size=3, stride=1),
+            nn.Conv2d(64, 64, kernel_size=1, stride=1),
             nn.ReLU()
         )
 
@@ -68,7 +68,7 @@ class CnnDQN(nn.Module):
             q_value = self.forward(state)
             action  = q_value.max(1)[1].data[0]
         else:
-            action = random.randrange(len(env.action_space))
+            action = random.randrange(len(env.actions))
         return action
 
 print('sibal', env.pre_score)
