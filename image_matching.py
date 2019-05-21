@@ -13,15 +13,19 @@ def match_image(thr, background, factor, game_over):
     mat_background = matrixlize(img)
     for num, template in enumerate(factor):
         w, h = template.shape[::-1]
-        res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
 
-        loc = np.where(res >= thr)
+        res = cv2.matchTemplate(img_gray, template, cv2.TM_SQDIFF_NORMED)
+        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+
+        min_thresh = (min_val + 1e-6) * 1.5
+        loc = np.where(res<=min_thresh)
+        # loc = np.where(res >= thr)
         # print(loc)
         if(num==0):
             value = -1
         else:
             value = 1
-        for pt in zip(*loc[::-1]):
+        for pt in zip(loc[1], loc[0]):
             x = shrinklize(pt[0])
             y = shrinklize(pt[1])
             shrinked_w = shrinklize(w)+1
