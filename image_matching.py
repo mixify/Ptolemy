@@ -5,16 +5,18 @@ import sys
 import cv2
 
 np.set_printoptions(threshold=sys.maxsize)
-def match_image(thr, background, templates):
+def match_image(thr, background, factor, game_over):
     img = background
     img_gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
 
+    alive = true
     mat_background = matrixlize(img)
-    for num,template in enumerate(templates):
+    for num, template in enumerate(factor):
         w, h = template.shape[::-1]
         res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
 
         loc = np.where(res >= thr)
+        print(loc)
         if(num==0):
             value = 2
         else:
@@ -25,6 +27,14 @@ def match_image(thr, background, templates):
             shrinked_w = shrinklize(w)
             shrinked_h = shrinklize(h)
             mat_background[x:x+shrinked_w,y:y+shrinked_h] += value
+
+    for num, template in enumerate(game_over):
+        w, h = template.shape[::-1]
+        res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
+
+        loc = np.where(res >= thr)
+        # if(loc)
+
             # cv2.rectangle(img, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
 
     # print(shrinklize(pt[0]),shrinklize(w))
@@ -33,29 +43,31 @@ def match_image(thr, background, templates):
     # print(mat_background.shape)
     #     ;
         # cv2.rectangle(img, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
-    return img, mat_background
+    return done, img, mat_background
 
 similarity = 0.9
 
-L_X = 24
-L_Y = 373
-R_X = 641
-R_Y = 507
+L_X = 44
+L_Y = 258
+R_X = 639
+R_Y = 702
 
 width = R_X - L_X
 height = R_Y - L_Y
 print(width,height)
-template = cv2.imread('target.png', cv2.IMREAD_GRAYSCALE) # let's change to memory in the future
-obs1 = cv2.imread('obs1.png', cv2.IMREAD_GRAYSCALE) # let's change to memory in the future
-obs2 = cv2.imread('obs2.png', cv2.IMREAD_GRAYSCALE) # let's change to memory in the future
-templates = [template,obs1,obs2]
+snake = cv2.imread('snake.png', cv2.IMREAD_GRAYSCALE) # let's change to memory in the future
+target = cv2.imread('target.png', cv2.IMREAD_GRAYSCALE) # let's change to memory in the future
+game_over1 = cv2.imread('game_over.png', cv2.IMREAD_GRAYSCALE)
+game_over2 = cv2.imread('game_over2.png', cv2.IMREAD_GRAYSCALE)
+factor = [snake, target]
+game_over = [game_over1, game_over2]
 def get_state():
     last_time = time.time()
     state = np.zeros((width//10, height//10))
     for i in range(100000):
         background_img_pil = ImageGrab.grab(bbox = (L_X, L_Y, R_X, R_Y))
         background_img_cv = cv2.cvtColor(np.array(background_img_pil), cv2.COLOR_RGB2BGR)
-        img, mat = match_image(similarity, background_img_cv, templates)
+        img, mat = match_image(similarity, background_img_cv, factor, game_over)
         printScreen = np.array(img)
 
         if(i%30 == 0):
