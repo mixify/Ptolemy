@@ -18,8 +18,8 @@ def match_image(thr, background, factor, game_over):
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
 
         # min_thresh = (min_val + 1e-6) * 1.5
-        loc = np.where(res<=min_thresh)
-        # loc = np.where(res >= thr)
+        # loc = np.where(res>=thr)
+        loc = np.where(res >= thr)
         # print(loc)
         if(num==0):
             value = 1
