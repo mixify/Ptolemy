@@ -43,7 +43,7 @@ def match_image(thr, background, factor, game_over):
     # print(mat_background.shape)
     #     ;
         # cv2.rectangle(img, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
-    return done, img, mat_background
+    return alive, img, mat_background
 
 similarity = 0.9
 
