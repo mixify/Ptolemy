@@ -18,9 +18,9 @@ def match_image(thr, background, factor, game_over):
         loc = np.where(res >= thr)
         # print(loc)
         if(num==0):
-            value = 2
-        else:
             value = -1
+        else:
+            value = 1
         for pt in zip(*loc[::-1]):
             x = shrinklize(pt[0])
             y = shrinklize(pt[1])
