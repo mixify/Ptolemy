@@ -22,9 +22,9 @@ def match_image(thr, background, factor, game_over):
         # loc = np.where(res >= thr)
         # print(loc)
         if(num==0):
-            value = -1
-        else:
             value = 1
+        else:
+            value = -1
         for pt in zip(loc[1], loc[0]):
             x = shrinklize(pt[0])
             y = shrinklize(pt[1])
@@ -51,20 +51,26 @@ def match_image(thr, background, factor, game_over):
 
 similarity = 0.9
 
-L_X = 44
-L_Y = 258
+L_X = 35
+L_Y = 423
 R_X = 639
-R_Y = 702
+R_Y = 583
 
 width = R_X - L_X
 height = R_Y - L_Y
 print(width,height)
-snake = cv2.imread('snake.png', cv2.IMREAD_GRAYSCALE) # let's change to memory in the future
-target = cv2.imread('target.png', cv2.IMREAD_GRAYSCALE) # let's change to memory in the future
+# snake = cv2.imread('snake.png', cv2.IMREAD_GRAYSCALE) # let's change to memory in the future
+# target = cv2.imread('target.png', cv2.IMREAD_GRAYSCALE) # let's change to memory in the future
 game_over1 = cv2.imread('game_over.png', cv2.IMREAD_GRAYSCALE)
-game_over2 = cv2.imread('game_over2.png', cv2.IMREAD_GRAYSCALE)
-factor = [snake, target]
-game_over = [game_over1, game_over2]
+# game_over2 = cv2.imread('game_over2.png', cv2.IMREAD_GRAYSCALE)
+trex = cv2.imread('snake.png', cv2.IMREAD_GRAYSCALE)
+obs1 = cv2.imread('obs1.png', cv2.IMREAD_GRAYSCALE)
+obs2 = cv2.imread('obs2.png', cv2.IMREAD_GRAYSCALE)
+obs3 = cv2.imread('obs3.png', cv2.IMREAD_GRAYSCALE)
+obs4 = cv2.imread('obs4.png', cv2.IMREAD_GRAYSCALE)
+obs5 = cv2.imread('obs5.png', cv2.IMREAD_GRAYSCALE)
+factor = [trex, obs1, obs2, obs3, obs4, obs5]
+game_over = [game_over1]
 def get_state():
     last_time = time.time()
     state = np.zeros((width//10, height//10))
@@ -86,10 +92,10 @@ def get_state():
     #     break
     return state
 
-def matrixlize(img, shrinkage = 40):
+def matrixlize(img, shrinkage = 30):
     height, width = img.shape[:2]
     return np.zeros((int(width/shrinkage),int(height/shrinkage)))
 
-def shrinklize(val, shrinkage = 40):
+def shrinklize(val, shrinkage = 30):
     return int(val/shrinkage)
 get_state()
