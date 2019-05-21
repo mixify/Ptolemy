@@ -39,7 +39,6 @@ def match_image(thr, background, factor, game_over):
         #
         loc = np.where(res >= thr)
         for pt in zip(loc[1], loc[0]):
-            print('game over')
             alive = False
         # if(loc)
 
@@ -78,7 +77,8 @@ game_over = [game_over1]
 def get_state():
     last_time = time.time()
     state = np.zeros((width//10, height//10))
-    for i in range(100000):
+    done = False
+    for i in range(4):
         background_img_pil = ImageGrab.grab(bbox = (L_X, L_Y, R_X, R_Y))
         background_img_cv = cv2.cvtColor(np.array(background_img_pil), cv2.COLOR_RGB2BGR)
         alive, img, mat = match_image(similarity, background_img_cv, factor, game_over)
@@ -89,12 +89,15 @@ def get_state():
             print('----------------------')
         # print('{} : '.format(time.time() - last_time))
         last_time = time.time()
+        if(not alive):
+            done = True
+
         # cv2.imshow('window', cv2.cvtColor(printScreen, cv2.COLOR_BGR2RGB))
         #
         # if cv2.waitKey(25) & 0xFF == ord('q'):
         #     cv2.destroyAllWindows()
     #     break
-    return state
+    return done, state
 
 def matrixlize(img, shrinkage = 30):
     height, width = img.shape[:2]
@@ -102,5 +105,5 @@ def matrixlize(img, shrinkage = 30):
 
 def shrinklize(val, shrinkage = 30):
     return int(val/shrinkage)
-get_state()
+# get_state()
 

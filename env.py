@@ -24,9 +24,7 @@ class env():
         macro1.setKeyPress('space')
         macros.append(macro1)
 
-        macro2 = mc.Macro()
         # new_macro.setDelay(3)
-        macro2.setKeyPress('down')
         macros.append(macro2)
 
 
@@ -79,13 +77,16 @@ class env():
         reward = 0 # get from ocr
 
         done, next_state = get_state()#Capture
-        return (next_state, reward, self.is_alive)
+        return (next_state, reward, done)
 
     def reset(self):
 #         self.pre_score = 0
+        runMacro(self.actions[1])
+        runMacro(self.actions[1])
         self.time_step = 0
         self.is_alive = true
-        print('reset~~~')
+        _, state = get_state()
+        return state
 
 # e = env()
 # e.set_actions('a')
