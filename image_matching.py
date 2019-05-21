@@ -76,7 +76,7 @@ factor = [trex, obs1, obs2, obs3, obs4, obs5]
 game_over = [game_over1]
 def get_state():
     last_time = time.time()
-    state = np.zeros((width//10, height//10))
+    state = np.zeros((width//30, height//30,4))
     done = False
     for i in range(4):
         background_img_pil = ImageGrab.grab(bbox = (L_X, L_Y, R_X, R_Y))
@@ -84,9 +84,7 @@ def get_state():
         alive, img, mat = match_image(similarity, background_img_cv, factor, game_over)
         printScreen = np.array(img)
 
-        if(i%30 == 0):
-            print(mat[:].T)
-            print('----------------------')
+        state[:,:,i] = mat
         # print('{} : '.format(time.time() - last_time))
         last_time = time.time()
         if(not alive):
@@ -97,10 +95,11 @@ def get_state():
         # if cv2.waitKey(25) & 0xFF == ord('q'):
         #     cv2.destroyAllWindows()
     #     break
+    print(state[:,:,:].T)
     return done, state
 
 def get_shape():
-    return (width//10,height//10)
+    return (width//30,height//30)
 def matrixlize(img, shrinkage = 30):
     height, width = img.shape[:2]
     return np.zeros((int(width/shrinkage),int(height/shrinkage)))
