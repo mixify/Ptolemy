@@ -16,7 +16,7 @@ def match_image(thr, background, factor, game_over):
         res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
 
         loc = np.where(res >= thr)
-        print(loc)
+        # print(loc)
         if(num==0):
             value = 2
         else:
