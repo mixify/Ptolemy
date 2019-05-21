@@ -24,8 +24,8 @@ def match_image(thr, background, factor, game_over):
         for pt in zip(*loc[::-1]):
             x = shrinklize(pt[0])
             y = shrinklize(pt[1])
-            shrinked_w = shrinklize(w)
-            shrinked_h = shrinklize(h)
+            shrinked_w = shrinklize(w)+1
+            shrinked_h = shrinklize(h)+1
             mat_background[x:x+shrinked_w,y:y+shrinked_h] += value
 
     for num, template in enumerate(game_over):
