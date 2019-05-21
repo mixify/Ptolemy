@@ -9,7 +9,7 @@ def match_image(thr, background, factor, game_over):
     img = background
     img_gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
 
-    alive = true
+    alive = True
     mat_background = matrixlize(img)
     for num, template in enumerate(factor):
         w, h = template.shape[::-1]
