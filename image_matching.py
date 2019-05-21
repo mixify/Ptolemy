@@ -61,7 +61,7 @@ R_Y = 583
 
 width = R_X - L_X
 height = R_Y - L_Y
-print(width,height)
+# print(width,height)
 # snake = cv2.imread('snake.png', cv2.IMREAD_GRAYSCALE) # let's change to memory in the future
 # target = cv2.imread('target.png', cv2.IMREAD_GRAYSCALE) # let's change to memory in the future
 game_over1 = cv2.imread('game_over.png', cv2.IMREAD_GRAYSCALE)

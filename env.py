@@ -25,7 +25,7 @@ class env():
         macros.append(macro1)
 
         # new_macro.setDelay(3)
-        macros.append(macro2)
+        # macros.append(macro2)
 
 
 
