@@ -99,7 +99,7 @@ def get_state():
     return done, state
 
 def get_shape():
-    return (width//30,height//30)
+    return (width//30,height//30,4)
 def matrixlize(img, shrinkage = 30):
     height, width = img.shape[:2]
     return np.zeros((int(width/shrinkage),int(height/shrinkage)))
