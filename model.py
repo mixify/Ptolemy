@@ -72,8 +72,8 @@ class CnnDQN(nn.Module):
         return action
 
 print('sibal', env.pre_score)
-current_model = CnnDQN(env.observation_space.shape, len(env.actions))
-target_model  = CnnDQN(env.observation_space.shape, len(env.actions))
+current_model = CnnDQN(env.observation_space, len(env.actions))
+target_model  = CnnDQN(env.observation_space, len(env.actions))
 
 def update_target(current_model, target_model):
     target_model.load_state_dict(current_model.state_dict())
