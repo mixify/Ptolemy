@@ -13,12 +13,13 @@ def match_image(thr, background, factor, game_over):
     mat_background = matrixlize(img)
     for num, template in enumerate(factor):
         w, h = template.shape[::-1]
+        #print(w,h)
 
-        res = cv2.matchTemplate(img_gray, template, cv2.TM_SQDIFF_NORMED)
-        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+        res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
+        # min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
 
         # min_thresh = (min_val + 1e-6) * 1.5
-        # loc = np.where(res>=thr)
+        # loc = np.where(res<=min_thresh)
         loc = np.where(res >= thr)
         # print(loc)
         if(num==0):
@@ -52,7 +53,7 @@ def match_image(thr, background, factor, game_over):
 similarity = 0.9
 
 L_X = 35
-L_Y = 423
+L_Y = 400
 R_X = 639
 R_Y = 583
 
@@ -63,7 +64,7 @@ print(width,height)
 # target = cv2.imread('target.png', cv2.IMREAD_GRAYSCALE) # let's change to memory in the future
 game_over1 = cv2.imread('game_over.png', cv2.IMREAD_GRAYSCALE)
 # game_over2 = cv2.imread('game_over2.png', cv2.IMREAD_GRAYSCALE)
-trex = cv2.imread('snake.png', cv2.IMREAD_GRAYSCALE)
+trex = cv2.imread('dinosaur.png', cv2.IMREAD_GRAYSCALE)
 obs1 = cv2.imread('obs1.png', cv2.IMREAD_GRAYSCALE)
 obs2 = cv2.imread('obs2.png', cv2.IMREAD_GRAYSCALE)
 obs3 = cv2.imread('obs3.png', cv2.IMREAD_GRAYSCALE)
