@@ -12,7 +12,7 @@ class env():
         def __init__(self,observations which is cv image matched data,actions which is macros):
         '''
         ### observation_space
-        self.observation_space = im.get_state()
+        self.observation_space = im.get_shape()
         self.time_step = 0;
         self.best_time_step = 0;
         self.is_alive = True
