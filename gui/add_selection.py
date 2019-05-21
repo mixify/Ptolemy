@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 #from PyQt5.QtWidgets import QWidget
-import mouse_ui,keyboard_ui
+import add_normal,add_dynamic
 
 class add_selection(object):
     
@@ -18,7 +18,16 @@ class add_selection(object):
         self.radioButton_2.setGeometry(QtCore.QRect(30, 60, 110, 15))
         self.radioButton_2.setObjectName("radioButton_2")
     
+        self.pushButton = QtWidgets.QPushButton(Dialog)
+        self.pushButton.setGeometry(QtCore.QRect(40, 120, 75, 23))
+        self.pushButton.setObjectName("pushButton")
+        self.pushButton.clicked.connect(self.next_dialog)
 
+
+        self.pushButton_2 = QtWidgets.QPushButton(Dialog)
+        self.pushButton_2.setGeometry(QtCore.QRect(120, 120, 75, 23))
+        self.pushButton_2.setObjectName("pushButton_2")
+        
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
@@ -30,8 +39,19 @@ class add_selection(object):
         self.groupBox.setTitle(_translate("Dialog", "매크로 종류"))
         self.radioButton.setText(_translate("Dialog", "일반 매크로"))
         self.radioButton_2.setText(_translate("Dialog", "다이나믹 매크로"))
-        
-        
+        self.pushButton.setText(_translate("Dialog","확인"))
+        self.pushButton_2.setText(_translate("Dialog","취소"))
+
+    def next_dialog(self):
+        Dialog = QtWidgets.QDialog()
+        if self.radioButton.isChecked():
+            ui = add_normal.add_normal()
+        elif self.radioButton_2.isChecked():
+            ui = add_dynamic.add_dynamic()
+
+        ui.setupUi(Dialog)
+        Dialog.show()
+        Dialog.exec_()            
 
 
 

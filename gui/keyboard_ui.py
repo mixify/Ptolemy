@@ -16,6 +16,7 @@ class EventHook:
         self.y_pos = None
         self.key = None
         self.ui = ui
+        self.return_val = None
     def KeyboardEvent(self, event):
         self.key = event.name
         print(str(self.key))
@@ -38,14 +39,28 @@ class keyboard_ui(object):
         self.label = QtWidgets.QLabel(Dialog)
         self.label.setGeometry(QtCore.QRect(10, 30, 60, 20))
         self.label.setObjectName("label")
-        self.input_key = QtWidgets.QLabel(Dialog)
-        self.input_key.setGeometry(QtCore.QRect(70, 30, 60, 20))
+        self.input_key = QtWidgets.QLineEdit(Dialog)
+        self.input_key.setGeometry(QtCore.QRect(70, 30, 90, 20))
         self.input_key.setObjectName("input_key")
-        self.buttonBox = QtWidgets.QDialogButtonBox(Dialog)
-        self.buttonBox.setGeometry(QtCore.QRect(20, 80, 156, 23))
-        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
-        self.buttonBox.setObjectName("buttonBox")
-
+        self.input_key.setReadOnly(True)
+        
+    #   self.buttonBox = QtWidgets.QDialogButtonBox(Dialog)
+    #    
+        self.pushButton_1 = QtWidgets.QPushButton(Dialog)
+        self.pushButton_1.setAutoDefault(False)
+        self.pushButton_1.setGeometry(QtCore.QRect(20, 80, 80, 23))
+        self.pushButton_1.setObjectName("pushButton_1")
+        self.pushButton_2 = QtWidgets.QPushButton(Dialog)
+        self.pushButton_2.setAutoDefault(False)
+        self.pushButton_2.setGeometry(QtCore.QRect(100, 80, 80, 23))
+        self.pushButton_2.setObjectName("pushButton_2")
+   #     self.buttonBox.setStandardButtons(self.pushButton_1|self.pushButton_2)
+      
+     #   self.buttonBox.setObjectName("buttonBox")
+        
+        self.pushButton_1.clicked.connect(self.clicked_ok)
+        self.pushButton_2.clicked.connect(Dialog.reject)
+    
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
@@ -55,8 +70,11 @@ class keyboard_ui(object):
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
         self.label.setText(_translate("Dialog", "키 입력"))
         self.input_key.setText(_translate("Dialog", "키를 입력하세요"))
-
-
+        self.pushButton_1.setText(_translate("Dialog","확인"))
+        self.pushButton_2.setText(_translate("Dialog","취소"))
+    def clicked_ok(self):
+        self.return_val = self.input_key.text()
+        Dialog.reject()
 
 
     def __del__(self):

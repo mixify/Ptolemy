@@ -6,7 +6,7 @@ class add_dynamic(object):
     
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(340, 620)
+        Dialog.resize(340, 630)
        
         self.groupBox = QtWidgets.QGroupBox(Dialog)
         self.groupBox.setGeometry(QtCore.QRect(10, 10, 321, 591))
@@ -18,15 +18,20 @@ class add_dynamic(object):
         self.pushButton_2 = QtWidgets.QPushButton(self.groupBox)
         self.pushButton_2.setGeometry(QtCore.QRect(200, 30, 75, 30))
         self.pushButton_2.setObjectName("pushButton_2")
-
         self.label_1 = QtWidgets.QLabel(self.groupBox)
         self.label_1.setGeometry(QtCore.QRect(20, 30, 61, 30))
         self.label_1.setObjectName("label_1")
+        self.label_5 = QtWidgets.QLabel(self.groupBox)
+        self.label_5.setGeometry(QtCore.QRect(20, 55, 61, 30))
+        self.label_5.setObjectName("label_5")
+
 
         self.label_2 = QtWidgets.QLabel(self.groupBox)
         self.label_2.setGeometry(QtCore.QRect(20, 540, 61, 30))
         self.label_2.setObjectName("label_2")
-        
+        self.label_6 = QtWidgets.QLabel(self.groupBox)
+        self.label_6.setGeometry(QtCore.QRect(20,565, 61,30))
+        self.label_6.setObjectName("label_6")
         self.pushButton_3 = QtWidgets.QPushButton(self.groupBox)
         self.pushButton_3.setGeometry(QtCore.QRect(110, 540, 75, 30))
         self.pushButton_3.setObjectName("pushButton_3")
@@ -59,17 +64,19 @@ class add_dynamic(object):
         self.graphicsView_2.setGeometry(QtCore.QRect(10, 280, 271, 161))
         self.graphicsView_2.setObjectName("graphicsView_2")
         
-        self.pushButton_7 = QtWidgets.QPushButton(self.groupBox)
-        self.pushButton_7.setGeometry(QtCore.QRect(250, 570, 75, 20))
+        self.pushButton_7 = QtWidgets.QPushButton(Dialog)
+        self.pushButton_7.setGeometry(QtCore.QRect(170, 605, 75, 20))
         self.pushButton_7.setObjectName("pushButton_7")
-#        self.pushButton_10 = QtWidgets.QPushButton(Dialog)
-#        self.pushButton_10.setGeometry(QtCore.QRect(520, 610, 75, 23))
-#        self.pushButton_10.setObjectName("pushButton_10")
+                
+        self.pushButton_8 = QtWidgets.QPushButton(Dialog)
+        self.pushButton_8.setGeometry(QtCore.QRect(250, 605, 75, 20))
+        self.pushButton_8.setObjectName("pushButton_8")
 
 
-        self.pushButton_1.clicked.connect(self.normal_setting)
-        self.pushButton_3.clicked.connect(self.normal_setting)
-
+        self.pushButton_1.clicked.connect(self.add_start)
+        self.pushButton_3.clicked.connect(self.add_end)
+        self.pushButton_8.clicked.connect(Dialog.reject)
+    
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
@@ -81,12 +88,13 @@ class add_dynamic(object):
         self.label_1.setText(_translate("Dialog", "시작매크로"))
         self.pushButton_1.setText(_translate("Dialog", "만들기"))
         self.pushButton_2.setText(_translate("Dialog", "불러오기"))
-
+        self.label_5.setText(_translate("Dialog","파일 미정"))
 
         self.label_2.setText(_translate("Dialog", "종료매크로"))
         self.pushButton_3.setText(_translate("Dialog", "만들기"))
         self.pushButton_4.setText(_translate("Dialog", "불러오기"))
-        
+        self.label_6.setText(_translate("Dialog","파일 미정"))
+
         self.groupBox_1.setTitle(_translate("Dialog", "학습요인 설정"))
         self.label_3.setText(_translate("Dialog", "화면 설정"))
         self.pushButton_5.setText(_translate("Dialog", "설정하기"))
@@ -95,19 +103,19 @@ class add_dynamic(object):
         self.pushButton_6.setText(_translate("Dialog", "설정하기"))
 
 
-        self.pushButton_7.setText(_translate("Dialog", "저장하기"))
+        self.pushButton_7.setText(_translate("Dialog", "저장"))
+        self.pushButton_8.setText(_translate("Dialog","취소"))
 
-
-    def normal_setting(self):
+    def add_start(self):
         Dialog = QtWidgets.QDialog()
         ui = add_normal.add_normal()
         ui.setupUi(Dialog)
         Dialog.show()
         Dialog.exec_()
 
-    def mouse_setting(self):
+    def add_end(self):
         Dialog = QtWidgets.QDialog()
-        ui = mouse_ui.mouse_ui()
+        ui = add_normal.add_normal()
         ui.setupUi(Dialog)
         Dialog.show()
         Dialog.exec_()

@@ -1,15 +1,17 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 #from PyQt5.QtWidgets import QWidget
-import mouse_ui,keyboard_ui
+import mouse_ui,keyboard_ui,Macro
 
 class add_normal(object):
-    
+    def __init__(self):
+        self.macro = Macro.Macro()
+   
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(611, 645)
+        Dialog.resize(265, 440)
        
         self.groupBox_2 = QtWidgets.QGroupBox(Dialog)
-        self.groupBox_2.setGeometry(QtCore.QRect(10, 120, 241, 381))
+        self.groupBox_2.setGeometry(QtCore.QRect(10, 10, 240, 380))
         self.groupBox_2.setObjectName("groupBox_2")
         
         self.pushButton_2 = QtWidgets.QPushButton(self.groupBox_2)
@@ -48,18 +50,18 @@ class add_normal(object):
         self.listView.setGeometry(QtCore.QRect(10, 160, 221, 191))
         self.listView.setObjectName("listView")
 
-        self.pushButton = QtWidgets.QPushButton(self.groupBox_2)
-        self.pushButton.setGeometry(QtCore.QRect(160, 335, 75, 23))
+        self.pushButton = QtWidgets.QPushButton(Dialog)
+        self.pushButton.setGeometry(QtCore.QRect(100, 400, 75, 23))
         self.pushButton.setObjectName("pushButton")
-        
-#        self.pushButton_4 = QtWidgets.QPushButton(Dialog)
-#        self.pushButton_4.setGeometry(QtCore.QRect(520, 610, 75, 23))
-#        self.pushButton_4.setObjectName("pushButton_4")
 
+        self.pushButton_6 = QtWidgets.QPushButton(Dialog)
+        self.pushButton_6.setGeometry(QtCore.QRect(180,400,75,23  ))
+        self.pushButton_6.setObjectName("pushButton_6")
 
         self.pushButton_2.clicked.connect(self.keyboard_setting)
         self.pushButton_3.clicked.connect(self.mouse_setting)
-
+        self.pushButton_6.clicked.connect(Dialog.reject)
+#        self.pushButton.clicked.connect()
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
@@ -79,14 +81,17 @@ class add_normal(object):
         self.label_4.setText(_translate("Dialog", "녹화 설정"))
 
         self.pushButton.setText(_translate("Dialog", "저장하기"))
-
+        self.pushButton_6.setText(_translate("Dialog","취소"))
 
     def keyboard_setting(self):
-        Dialog = QtWidgets.QDialog(self.pushButton_4)
+        Dialog = QtWidgets.QDialog()
         ui = keyboard_ui.keyboard_ui()
         ui.setupUi(Dialog)
         Dialog.show()
         Dialog.exec_()
+        self.macro.event_data.append(str(ui.input_key))
+       # ret_key = ui.return_val
+       # self.label_2.setText(str(ret_key))
 
     def mouse_setting(self):
         Dialog = QtWidgets.QDialog()
@@ -94,8 +99,6 @@ class add_normal(object):
         ui.setupUi(Dialog)
         Dialog.show()
         Dialog.exec_()
-        
-        
 
 
 
