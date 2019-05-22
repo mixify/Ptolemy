@@ -76,7 +76,7 @@ factor = [trex, obs1, obs2, obs3, obs4, obs5]
 game_over = [game_over1]
 def get_state():
     last_time = time.time()
-    state = np.zeros((width//30, height//30,4))
+    state = np.zeros((width//35, height//35,4))
     done = False
     for i in range(4):
         background_img_pil = ImageGrab.grab(bbox = (L_X, L_Y, R_X, R_Y))
@@ -99,12 +99,12 @@ def get_state():
     return done, state
 
 def get_shape():
-    return (width//30,height//30,4)
-def matrixlize(img, shrinkage = 30):
+    return (width//35,height//35,4)
+def matrixlize(img, shrinkage = 35):
     height, width = img.shape[:2]
     return np.zeros((int(width/shrinkage),int(height/shrinkage)))
 
-def shrinklize(val, shrinkage = 30):
+def shrinklize(val, shrinkage = 35):
     return int(val/shrinkage)
 # get_state()
 

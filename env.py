@@ -51,7 +51,7 @@ class env():
 
 
         self.time_step+=1
-        print(action_num)
+        # print(action_num)
         if(action_num>0):#do nothing if no op
             self.actions[action_num].runMacro()
 
@@ -59,13 +59,8 @@ class env():
         '''
         score = get_score_from_ocr
         '''
-        self.best_time_step = max(self.best_time_step,self.time_step)
-        if(self.time_step>self.best_time_step):
-            reward = 1
-        elif(self.is_alive==False):
-            reward = -3
-        else:
-            reward = 0
+#        print("t = ",self.time_step)
+#        print("best_t = ",self.best_time_step)
         # if(pre_score < score):
         #     reward = 1
         # elif(pre_score == score):
@@ -75,9 +70,19 @@ class env():
 
         # pre_score = score;
 
-        reward = 0 # get from ocr
+        #reward = 0 # get from ocr
 
         done, next_state = im.get_state()#Capture
+
+        if(self.time_step>self.best_time_step):
+            reward = 1
+        elif(done):
+            reward = -1
+        else:
+            reward = 0
+        if(done):
+            self.best_time_step = max(self.best_time_step,self.time_step)
+        
         return (next_state, reward, done, 0)
 
     def reset(self):

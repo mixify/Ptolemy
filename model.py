@@ -122,7 +122,7 @@ epsilon_final = 0.01
 epsilon_decay = 30000
 
 
-num_frames = 1000000
+num_frames = 10000000
 batch_size = 32
 gamma      = 0.99
 
@@ -136,6 +136,7 @@ for frame_idx in range(1, num_frames + 1):
     action = current_model.act(state, epsilon)
 
     next_state, reward, done, _ = env.step(action)
+    print('reward :',reward)
     replay_buffer.push(state, action, reward, next_state, done)
 
     state = next_state
@@ -148,10 +149,12 @@ for frame_idx in range(1, num_frames + 1):
 
     if len(replay_buffer) > replay_initial:
         loss = compute_td_loss(batch_size)
-        losses.append(loss.data[0])
+        losses.append(loss.data)
 
-    if frame_idx % 10000 == 0:
-        plot(frame_idx, all_rewards, losses)
+    #if frame_idx % 2== 0:
+    print(state[:,:,0].T)
+    print('')
+        #plot(frame_idx, all_rewards, losses)
 
     if frame_idx % 1000 == 0:
         update_target(current_model, target_model)
