@@ -1,4 +1,7 @@
 import math, random
+import time
+from datetime import timedelta
+import signal
 
 import numpy as np
 import torch
@@ -131,11 +134,45 @@ all_rewards = []
 episode_reward = 0
 
 state = env.reset()
+
+
+original_sigint = signal.getsignal(signal.SIGINT)
+
+def print_info():
+    print(frame_idx)
+    print(epsilon)
+
+def ctrlc_handler(signum, frame):
+    signal.signal(signal.SIGINT, original_sigint)
+    try:
+        while(1):
+            ans = input('\nPaused learning\npress (i) to see input\npress (y) to quit\npress (r) to resume\n:').lower()
+            if(ans.startswith('y')):
+                sys.exit()
+            elif(ans.startswith('i')):
+                print_info()
+            elif(ans.startswith('r')):
+                break
+
+    except KeyboardInterrupt:
+        print('I\'m quiting really')
+        sys.exit()
+    signal.signal(signal.SIGINT, ctrlc_handler)
+
+signal.signal(signal.SIGINT, ctrlc_handler)
+
+
+start = time.time()
+
+
 for frame_idx in range(1, num_frames + 1):
     epsilon = epsilon_by_frame(frame_idx)
     action = current_model.act(state, epsilon)
 
+    print('action = ',action)
     next_state, reward, done, _ = env.step(action)
+    if(frame_idx < 10):
+        reward=0
     print('reward :',reward)
     replay_buffer.push(state, action, reward, next_state, done)
 
@@ -159,3 +196,8 @@ for frame_idx in range(1, num_frames + 1):
     if frame_idx % 1000 == 0:
         update_target(current_model, target_model)
 
+    if frame_idx % 10000 == 0:
+        check_point = time.time()
+        elapsed = check_point - start
+        PATH = 'saved_agents/dqn_neural'+str(timedelta(seconds=elapsed)).replace(':','_')
+        torch.save(current_model.state_dict(),PATH)

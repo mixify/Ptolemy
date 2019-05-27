@@ -19,10 +19,14 @@ class env():
         ### actions
 
         macros = []
+
         macro1 = mc.Macro()
+        macro2 = mc.Macro()
         # new_macro.setDelay(3)
-        macro1.setKeyPress('space')
+        macro1.setKeyPress('left')
         macros.append(macro1)
+        macro2.setKeyPress('right')
+        macros.append(macro2)
 
         # new_macro.setDelay(3)
         # macros.append(macro2)
@@ -34,6 +38,7 @@ class env():
         end here
         '''
         self.actions.append(macro1)
+        self.actions.append(macro2)
 
     def set_actions(self, macros):
         '''
@@ -51,7 +56,6 @@ class env():
 
 
         self.time_step+=1
-        # print(action_num)
         if(action_num>0):#do nothing if no op
             self.actions[action_num].runMacro()
 
@@ -74,31 +78,26 @@ class env():
 
         done, next_state = im.get_state()#Capture
 
-        if(self.time_step>14 and self.time_step%3==0):
+        if(self.time_step>self.best_time_step):
             reward = 1
+        elif(self.time_step>int(self.best_time_step*0.75)):
+            reward = abs(self.time_step)/self.best_time_step
+        elif(done):
+            reward = -1
         else:
             reward = 0
-
-        if(done):
-            reward = -1
-
-        # elif(self.time_step>int(self.best_time_step*0.75)):
-        #     reward = abs(self.time_step)/self.best_time_step
-        # else:
-        #     reward = 0
         if(done):
             self.best_time_step = max(self.best_time_step,self.time_step)
 
         return (next_state, reward, done, 0)
 
     def reset(self):
+        reset_macro = mc.Macro()
 #         self.pre_score = 0
-        self.actions[1].runMacro()
+        reset_macro.setMouseClick('left')
+        reset_macro.runMacro();
         self.time_step = 0
         self.is_alive = True
         _, state = im.get_state()
         return state
 
-# e = env()
-# e.set_actions('a')
-# e.actions[1].runMacro()

@@ -3,7 +3,6 @@ import math, random
 import signal
 import sys
 
-import gym
 import numpy as np
 
 import torch
@@ -101,11 +100,11 @@ class RainbowCnnDQN(nn.Module):
         self.Vmax         = Vmax
 
         self.features = nn.Sequential(
-            nn.Conv2d(input_shape[0], 32, kernel_size=8, stride=4),
+            nn.Conv2d(input_shape[0], 32, kernel_size=4, stride=4),
             nn.ReLU(),
-            nn.Conv2d(32, 64, kernel_size=4, stride=2),
+            nn.Conv2d(32, 64, kernel_size=1, stride=2),
             nn.ReLU(),
-            nn.Conv2d(64, 64, kernel_size=3, stride=1),
+            nn.Conv2d(64, 64, kernel_size=1, stride=1),
             nn.ReLU()
         )
 
@@ -148,6 +147,7 @@ class RainbowCnnDQN(nn.Module):
     def act(self, state):
         state = Variable(torch.FloatTensor(np.float32(state)).unsqueeze(0), volatile=True)
         dist = self.forward(state).data.cpu()
+#        print(dist)
         dist = dist * torch.linspace(self.Vmin, self.Vmax, self.num_atoms)
         action = dist.sum(2).max(1)[1].numpy()[0]
         return action
@@ -169,7 +169,7 @@ update_target(current_model, target_model)
 replay_initial = 10000
 replay_buffer  = ReplayBuffer(100000)
 
-num_frames = 1000000
+num_frames = 10000000
 batch_size = 32
 gamma      = 0.99
 
@@ -184,7 +184,7 @@ start = time.time()
 original_sigint = signal.getsignal(signal.SIGINT)
 
 def print_info():
-    print('sibal')
+    print(frame_idx)
 
 def ctrlc_handler(signum, frame):
     signal.signal(signal.SIGINT, original_sigint)
@@ -201,14 +201,19 @@ def ctrlc_handler(signum, frame):
     except KeyboardInterrupt:
         print('I\'m quiting really')
         sys.exit()
+    signal.signal(signal.SIGINT, ctrlc_handler)
 
 signal.signal(signal.SIGINT, ctrlc_handler)
 
 
 for frame_idx in range(1, num_frames + 1):
     action = current_model.act(state)
+    #print(env.actions)
 
+    print('action = ',action)
     next_state, reward, done, _ = env.step(action)
+    if(frame_idx < 100):
+        reward = 0
     print('reward :',reward)
     replay_buffer.push(state, action, reward, next_state, done)
 
@@ -230,7 +235,7 @@ for frame_idx in range(1, num_frames + 1):
     if frame_idx % 10000 == 0:
         check_point = time.time()
         elapsed = check_point - start
-        PATH = 'rainbow_dqn_neural'+str(timedelta(seconds=elapsed))
+        PATH = 'rainbow_dqn_neural'+str(timedelta(seconds=elapsed).replace(':','_'))
         torch.save(current_model.state_dict(),PATH)
 
     if frame_idx % 1000 == 0:
