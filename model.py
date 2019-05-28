@@ -1,4 +1,7 @@
 import math, random
+import time
+from datetime import timedelta
+import signal
 
 import numpy as np
 import torch
@@ -39,11 +42,11 @@ class CnnDQN(nn.Module):
         self.num_actions = num_actions
 
         self.features = nn.Sequential(
-            nn.Conv2d(input_shape[0], 32, kernel_size=8, stride=4),
+            nn.Conv2d(input_shape[0], 32, kernel_size=4, stride=4),
             nn.ReLU(),
-            nn.Conv2d(32, 64, kernel_size=4, stride=2),
+            nn.Conv2d(32, 64, kernel_size=1, stride=2),
             nn.ReLU(),
-            nn.Conv2d(64, 64, kernel_size=3, stride=1),
+            nn.Conv2d(64, 64, kernel_size=1, stride=1),
             nn.ReLU()
         )
 
@@ -68,12 +71,12 @@ class CnnDQN(nn.Module):
             q_value = self.forward(state)
             action  = q_value.max(1)[1].data[0]
         else:
-            action = random.randrange(len(env.action_space))
+            action = random.randrange(len(env.actions))
         return action
 
 print('sibal', env.pre_score)
-current_model = CnnDQN(env.observation_space.shape, len(env.actions))
-target_model  = CnnDQN(env.observation_space.shape, len(env.actions))
+current_model = CnnDQN(env.observation_space, len(env.actions))
+target_model  = CnnDQN(env.observation_space, len(env.actions))
 
 def update_target(current_model, target_model):
     target_model.load_state_dict(current_model.state_dict())
@@ -122,7 +125,7 @@ epsilon_final = 0.01
 epsilon_decay = 30000
 
 
-num_frames = 1000000
+num_frames = 10000000
 batch_size = 32
 gamma      = 0.99
 
@@ -131,11 +134,48 @@ all_rewards = []
 episode_reward = 0
 
 state = env.reset()
+
+
+original_sigint = signal.getsignal(signal.SIGINT)
+
+def print_info():
+    print(frame_idx)
+    print(epsilon)
+
+def ctrlc_handler(signum, frame):
+    signal.signal(signal.SIGINT, original_sigint)
+    try:
+        while(1):
+            ans = input('\nPaused learning\npress (i) to see input\npress (y) to quit\npress (r) to resume\n:').lower()
+            if(ans.startswith('y')):
+                sys.exit()
+            elif(ans.startswith('i')):
+                print_info()
+            elif(ans.startswith('r')):
+                break
+
+    except KeyboardInterrupt:
+        print('I\'m quiting really')
+        sys.exit()
+    signal.signal(signal.SIGINT, ctrlc_handler)
+
+signal.signal(signal.SIGINT, ctrlc_handler)
+
+
+start = time.time()
+
+
 for frame_idx in range(1, num_frames + 1):
     epsilon = epsilon_by_frame(frame_idx)
     action = current_model.act(state, epsilon)
 
+    print('action = ',action)
+    # action = 0;
+    # action = 0
     next_state, reward, done, _ = env.step(action)
+    # if(frame_idx < 10):
+    #     reward=0
+    print('reward :',reward)
     replay_buffer.push(state, action, reward, next_state, done)
 
     state = next_state
@@ -148,11 +188,18 @@ for frame_idx in range(1, num_frames + 1):
 
     if len(replay_buffer) > replay_initial:
         loss = compute_td_loss(batch_size)
-        losses.append(loss.data[0])
+        losses.append(loss.data)
 
-    if frame_idx % 10000 == 0:
-        plot(frame_idx, all_rewards, losses)
+    #if frame_idx % 2== 0:
+    print(state[:,:,0].T)
+    print('')
+        #plot(frame_idx, all_rewards, losses)
 
     if frame_idx % 1000 == 0:
         update_target(current_model, target_model)
 
+    if frame_idx % 10000 == 0:
+        check_point = time.time()
+        elapsed = check_point - start
+        PATH = 'saved_agents/dqn_neural'+str(timedelta(seconds=elapsed)).replace(':','_')
+        torch.save(current_model.state_dict(),PATH)
