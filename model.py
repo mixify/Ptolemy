@@ -170,9 +170,11 @@ for frame_idx in range(1, num_frames + 1):
     action = current_model.act(state, epsilon)
 
     print('action = ',action)
+    # action = 0;
+    # action = 0
     next_state, reward, done, _ = env.step(action)
-    if(frame_idx < 10):
-        reward=0
+    # if(frame_idx < 10):
+    #     reward=0
     print('reward :',reward)
     replay_buffer.push(state, action, reward, next_state, done)
 

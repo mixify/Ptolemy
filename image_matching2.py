@@ -56,10 +56,10 @@ def match_image(thr, background, factor, game_over):
 
 similarity = 0.5
 
-L_X = 26
-L_Y = 96
-R_X = 501
-R_Y = 651
+L_X = 33
+L_Y = 192
+R_X = 525
+R_Y = 805
 
 width = R_X - L_X
 height = R_Y - L_Y
@@ -69,8 +69,14 @@ height = R_Y - L_Y
 game_over = cv2.imread('flap_gameover.png', cv2.IMREAD_GRAYSCALE)
 # game_over2 = cv2.imread('game_over2.png', cv2.IMREAD_GRAYSCALE)
 m1 = [cv2.imread('flap_bird.png', cv2.IMREAD_GRAYSCALE),1]
-o1 = [cv2.imread('flap_pipe.png', cv2.IMREAD_GRAYSCALE),-2]
-factor = [m1,o1]
+m2 = [cv2.imread('flap_bird2.png', cv2.IMREAD_GRAYSCALE),1]
+m3 = [cv2.imread('flap_bird3.png', cv2.IMREAD_GRAYSCALE),1]
+m4 = [cv2.imread('flap_bird4.png', cv2.IMREAD_GRAYSCALE),1]
+o1 = [cv2.imread('flap_pipe2.png', cv2.IMREAD_GRAYSCALE),-1]
+o2 = [cv2.imread('flap_pipe.png', cv2.IMREAD_GRAYSCALE),-2]
+o3 = [cv2.imread('flap_pipe3.png', cv2.IMREAD_GRAYSCALE),-2]
+factor = [m1,m2,m3,m4,o1,o2,o3]
+# factor = [m1,m2,o2]
 game_over = [game_over]
 def get_state():
     last_time = time.time()

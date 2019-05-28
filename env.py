@@ -21,9 +21,20 @@ class env():
         macros = []
         macro1 = mc.Macro()
         # new_macro.setDelay(3)
-        macro1.setKeyPress('space')
+        macro1.setMouseClick('left')
         macros.append(macro1)
 
+        # macro2 = mc.Macro()
+        # new_macro.setDelay(3)
+
+        self.reset_macro = mc.Macro()
+        self.reset_macro.setMouseMove(165,688)
+        self.reset_macro.setMouseClick('left')
+        self.reset_macro.setDelay(0.1)
+        self.reset_macro.setMouseMove(174,754)
+        self.reset_macro.setMouseClick('left')
+        self.reset_macro.setDelay(0.1)
+        self.reset_macro.setMouseClick('left')
         # new_macro.setDelay(3)
         # macros.append(macro2)
 
@@ -34,6 +45,7 @@ class env():
         end here
         '''
         self.actions.append(macro1)
+        # self.actions.append(macro2)
 
     def set_actions(self, macros):
         '''
@@ -74,7 +86,8 @@ class env():
 
         done, next_state = im.get_state()#Capture
 
-        if(self.time_step>14 and self.time_step%3==0):
+        print('time_step = ',self.time_step)
+        if(self.time_step>=9 and (self.time_step)%3==0):
             reward = 1
         else:
             reward = 0
@@ -93,7 +106,9 @@ class env():
 
     def reset(self):
 #         self.pre_score = 0
-        self.actions[1].runMacro()
+        # self.actions[1].runMacro()
+        self.reset_macro.runMacro()
+        # self.actions[1].runMacro()
         self.time_step = 0
         self.is_alive = True
         _, state = im.get_state()
