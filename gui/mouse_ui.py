@@ -103,6 +103,7 @@ class mouse_ui(object):
         
         self.retranslateUi(Dialog)
 
+
   #      self.mouse_x_pos.mouseMoveEvent(self.mouse_x_pos,mh.startHook)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
         

@@ -1,61 +1,28 @@
-import sys
-from PyQt5.QtWidgets import *
-from PyQt5.QtCore import *
+import numpy as np
+import cv2
+from matplotlib import pyplot as plt
 
+img = cv2.imread('flap_brid.jpg',0)
+# Initiate FAST object with default values
+fast = cv2.FastFeatureDetector_create()
+# find and draw the keypoints
+kp = fast.detect(img)
+img2 = cv2.drawKeypoints(color=(255,0,0), kp, None, flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
-class App(QWidget):
-    def __init__(self, parent=None):
-        super(App, self).__init__(parent=parent)  # these values change where the main window is placed
-        self.title = 'This is my title'
-        self.left = 400
-        self.top = 400
-        self.width = 300
-        self.height = 200
-        self.initUI()
+# Print all default params
+print("Threshold: ", fast.getInt('threshold'))
+print("nonmaxSuppression: ", fast.getBool('nonmaxSuppression'))
+print("neighborhood: ", fast.getInt('type'))
+print("Total Keypoints with nonmaxSuppression: ", len(kp))
 
-    def initUI(self):
-        self.setWindowTitle(self.title)
-        self.setGeometry(self.left, self.top, self.width, self.height)
+cv2.imwrite('fast_true.png',img2)
 
-        # call the gridlayout function
-        self.createGridLayout()
-        self.time_label.text = 'change the value'
-        windowLayout = QVBoxLayout()
-        windowLayout.addWidget(self.horizontalGroupBox)
-        self.setLayout(windowLayout)
-        self.show()  # this sets the main window to the screen size
+# Disable nonmaxSuppression
+fast.setBool('nonmaxSuppression',0)
+kp = fast.detect(img,None)
 
-    def createGridLayout(self):
-        time = self.getTime()
-        self.time_label = QLabel(time, self)
-        self.horizontalGroupBox = QGroupBox()
-        layout = QGridLayout()
-        layout.addWidget(QPushButton('1'), 0, 0)
-        layout.addWidget(QPushButton(time), 0, 1)
-        layout.addWidget(self.time_label, 0, 2)
-        self.horizontalGroupBox.setLayout(layout)
+print("Total Keypoints without nonmaxSuppression: ", len(kp))
 
-    def getTime(self):
-        time = QTime.currentTime().toString()
-        return time
+img3 = cv2.drawKeypoints(img, kp, color=(255,0,0))
 
-    def updateTime(self):
-        time = QTime.currentTime().toString()
-        print("Time: " + time)
-        self.time_label.setText(time)
-        return time
-
-
-def main():
-    app = QApplication(sys.argv)
-    ex = App()
-
-    timer = QTimer()
-  #  timer.timeout.connect(ex.updateTime)
-    timer.start(1000)
-
-    sys.exit(app.exec_())
-
-
-if __name__ == '__main__':
-    main()
+cv2.imwrite('flap_bird',img3)

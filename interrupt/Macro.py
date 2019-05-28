@@ -74,14 +74,11 @@ class Macro:
     def setMouseUp(self, event_name):
         self.addEventData(2, 'up', event_name, 0)
 
-<<<<<<< HEAD
-    def setMouseMove(self, x_pos, y_pos,delay):
-=======
+
     def setMouseMove(self, x_pos, y_pos):
->>>>>>> a05721df2fb1b30e8cfa57b4817738dd4c3419fe
         self.addEventData(3, x_pos, y_pos,0)
 
-    def setMouseDrag(self, s_x_pos, s_y_pos, e_x_pos, e_y_pos, duration=0.1):
+    def setMouseDrag(self, s_x_pos, s_y_pos, e_x_pos, duration=0.1):
         start_pos = [s_x_pos, s_y_pos]
         end_pos = [e_x_pos, e_y_pos]
         self.addEventData(4, start_pos, end_pos, duration)

@@ -56,10 +56,10 @@ def match_image(thr, background, factor, game_over):
 
 similarity = 0.5
 
-L_X = 33
-L_Y = 192
-R_X = 525
-R_Y = 805
+L_X = 110
+L_Y = 194
+R_X = 413
+R_Y = 611
 
 width = R_X - L_X
 height = R_Y - L_Y
