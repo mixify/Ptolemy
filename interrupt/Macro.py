@@ -97,6 +97,10 @@ class Macro:
         temp.append(delay)
         self.event_data.append(temp)
 
+    def delEventData(self, num):
+        if num <= len(self.event_data):
+            del(self.event_data[num-1])
+
     def runMacro(self):
         for (option, event_type, event_name, delay) in self.event_data:
             time.sleep(delay)
