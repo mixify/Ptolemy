@@ -17,7 +17,7 @@ class Macro:
             else:
                 delay = event.time - self.last_time
             self.last_time = event.time
-
+#
             if isinstance(event, keyboard.KeyboardEvent):
                 self.addEventData(1, event.event_type, event.name, delay)
 
@@ -57,7 +57,7 @@ class Macro:
     def setKeyPress(self, event_name):
         self.setKeyDown(event_name)
         self.setKeyUp(event_name)
-    
+
     def setKeyDown(self, event_name):
         self.addEventData(1, 'down', event_name, 0)
 

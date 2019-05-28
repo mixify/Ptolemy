@@ -1,7 +1,7 @@
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 #from PyQt5.QtWidgets import QMessageBox
-import mouse_ui,add_ui,keyboard_ui
+import mouse_ui,add_selection,keyboard_ui
 
 
 
@@ -126,10 +126,10 @@ class Ui_MainWindow(object):
     
     def add_button_clicked(self):
         Dialog = QtWidgets.QDialog(self.pushButton_2)
-        ui = add_ui.add_ui()
+        ui = add_selection.add_selection()
         ui.setupUi(Dialog)
-
         Dialog.show()
+        Dialog.exec_()
 
 
 if __name__ == "__main__":

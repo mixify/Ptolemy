@@ -5,7 +5,7 @@ import mouse_ui,keyboard_ui,Macro
 class add_normal(object):
     def __init__(self):
         self.macro = Macro.Macro()
-   
+        self.ret_key = 0
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(265, 440)
@@ -46,7 +46,7 @@ class add_normal(object):
         self.label_4.setGeometry(QtCore.QRect(20, 135, 71, 20))
         self.label_4.setScaledContents(False)
         self.label_4.setObjectName("label_4")
-        self.listView = QtWidgets.QListView(self.groupBox_2)
+        self.listView = QtWidgets.QListWidget(self.groupBox_2)
         self.listView.setGeometry(QtCore.QRect(10, 160, 221, 191))
         self.listView.setObjectName("listView")
 
@@ -86,12 +86,23 @@ class add_normal(object):
     def keyboard_setting(self):
         Dialog = QtWidgets.QDialog()
         ui = keyboard_ui.keyboard_ui()
+        Dialog.installEventFilter(Dialog)
         ui.setupUi(Dialog)
         Dialog.show()
         Dialog.exec_()
-        self.macro.event_data.append(str(ui.input_key))
-       # ret_key = ui.return_val
-       # self.label_2.setText(str(ret_key))
+        self.macro.event_data.append(str(ui.return_val))
+        self.ret_key = ui.return_val
+        self.listView.addItem(str(self.ret_key))
+        print(self.macro.event_data)
+        
+    def eventFilter(self, Dialog, event):
+            if event.key() == QtCore.Qt.Key_Escape :
+                event.name = 'esc'
+                event.ignore()
+            return  super(self).eventFilter(Dialog, event)
+
+
+
 
     def mouse_setting(self):
         Dialog = QtWidgets.QDialog()

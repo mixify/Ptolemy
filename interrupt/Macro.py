@@ -51,8 +51,8 @@ class Macro:
         keyboard.wait(until)
         keyboard.unhook_all()
         mouse.unhook_all()
-        del(self.event_data[0])
-        del(self.event_data[-1])
+        del(self.event_data[0]) # since key up delete
+        del(self.event_data[-1]) # until key down delete
 
     def setKeyPress(self, event_name):
         self.setKeyDown(event_name)
@@ -74,8 +74,8 @@ class Macro:
     def setMouseUp(self, event_name):
         self.addEventData(2, 'up', event_name, 0)
 
-    def setMouseMove(self, x_pos, y_pos, duration=0):
-        self.addEventData(3, x_pos, y_pos, duration)
+    def setMouseMove(self, x_pos, y_pos,delay):
+        self.addEventData(3, x_pos, y_pos,0)
 
     def setMouseDrag(self, s_x_pos, s_y_pos, e_x_pos, e_y_pos, duration=0.1):
         start_pos = [s_x_pos, s_y_pos]
@@ -102,15 +102,11 @@ class Macro:
             time.sleep(delay)
             
             if option == 1: # keyboard click
-                key = event_name
-                keyboard.press(key) if event_type == 'down' else keyboard.release(key)
+                keyboard.press(event_name) if event_type == 'down' else keyboard.release(event_name)
             elif option == 2: # mouse click
-                if event_type == 'up':
-                    mouse.release(event_name)
-                else:
-                    mouse.press(event_name)
+                mouse.press(event_name) if event_type == 'down' else mouse.release(event_name)
             elif option == 3: # mouse move
-                mouse.move(int(event_type), int(event_name), True, delay)
+                mouse.move(int(event_type), int(event_name))
             elif option == 4: # mouse drag
                 start_pos = list(event_type)
                 end_pos = list(event_name)

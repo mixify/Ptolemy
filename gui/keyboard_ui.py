@@ -7,8 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets,Qt
-import keyboard
-import Macro
+import keyboard, Macro
 
 class EventHook:
     def __init__(self,ui):
@@ -18,9 +17,10 @@ class EventHook:
         self.ui = ui
         self.return_val = None
     def KeyboardEvent(self, event):
-        self.key = event.name
-        print(str(self.key))
-        self.ui.input_key.setText(str(event.name))
+        if isinstance(event, keyboard.KeyboardEvent):
+            self.key = event.name
+            #print(str(self.key))
+            self.ui.input_key.setText(str(event.name))
     
     def startKeyboardHook(self):
         keyboard.on_press(self.KeyboardEvent)
@@ -30,12 +30,14 @@ class EventHook:
 
 class keyboard_ui(object):
     def __init__(self):
+    #    super(Dialog,self).__init__(super)
         self.kh = EventHook(self)
         self.macro = Macro.Macro()
-
+        self.close_flag = False
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(195, 122)
+    
         self.label = QtWidgets.QLabel(Dialog)
         self.label.setGeometry(QtCore.QRect(10, 30, 60, 20))
         self.label.setObjectName("label")
@@ -44,8 +46,6 @@ class keyboard_ui(object):
         self.input_key.setObjectName("input_key")
         self.input_key.setReadOnly(True)
         
-    #   self.buttonBox = QtWidgets.QDialogButtonBox(Dialog)
-    #    
         self.pushButton_1 = QtWidgets.QPushButton(Dialog)
         self.pushButton_1.setAutoDefault(False)
         self.pushButton_1.setGeometry(QtCore.QRect(20, 80, 80, 23))
@@ -54,12 +54,10 @@ class keyboard_ui(object):
         self.pushButton_2.setAutoDefault(False)
         self.pushButton_2.setGeometry(QtCore.QRect(100, 80, 80, 23))
         self.pushButton_2.setObjectName("pushButton_2")
-   #     self.buttonBox.setStandardButtons(self.pushButton_1|self.pushButton_2)
-      
-     #   self.buttonBox.setObjectName("buttonBox")
-        
+
         self.pushButton_1.clicked.connect(self.clicked_ok)
         self.pushButton_2.clicked.connect(Dialog.reject)
+        self.pushButton_1.clicked.connect(Dialog.reject)
     
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -72,13 +70,17 @@ class keyboard_ui(object):
         self.input_key.setText(_translate("Dialog", "키를 입력하세요"))
         self.pushButton_1.setText(_translate("Dialog","확인"))
         self.pushButton_2.setText(_translate("Dialog","취소"))
+ 
     def clicked_ok(self):
         self.return_val = self.input_key.text()
-        Dialog.reject()
-
-
-    def __del__(self):
         self.kh.stopKeyboardHook()
+
+   # def closeEvents(self, e):
+   #     if self.close_flag:
+   #         super(Dialog,self).closeEvent(e)
+   #     else:
+  #          e.ignore()
+        
 
 
 
