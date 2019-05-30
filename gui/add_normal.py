@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 #from PyQt5.QtWidgets import QWidget
-import mouse_ui,keyboard_ui,Macro
+import mouse_ui,keyboard_ui,Macro,delay_ui,record_ui
 
 class add_normal(object):
     def __init__(self):
@@ -60,6 +60,7 @@ class add_normal(object):
 
         self.pushButton_2.clicked.connect(self.keyboard_setting)
         self.pushButton_3.clicked.connect(self.mouse_setting)
+        self.pushButton_4.clicked.connect(self.delay_setting)
         self.pushButton_6.clicked.connect(Dialog.reject)
 #        self.pushButton.clicked.connect()
         self.retranslateUi(Dialog)
@@ -86,7 +87,7 @@ class add_normal(object):
     def keyboard_setting(self):
         Dialog = QtWidgets.QDialog()
         ui = keyboard_ui.keyboard_ui()
-        Dialog.installEventFilter(Dialog)
+   #     Dialog.installEventFilter(Dialog)
         ui.setupUi(Dialog)
         Dialog.show()
         Dialog.exec_()
@@ -94,13 +95,13 @@ class add_normal(object):
         self.ret_key = ui.return_val
         self.listView.addItem(str(self.ret_key))
         print(self.macro.event_data)
-        
+        """
     def eventFilter(self, Dialog, event):
             if event.key() == QtCore.Qt.Key_Escape :
                 event.name = 'esc'
                 event.ignore()
             return  super(self).eventFilter(Dialog, event)
-
+"""
 
 
 
@@ -110,7 +111,29 @@ class add_normal(object):
         ui.setupUi(Dialog)
         Dialog.show()
         Dialog.exec_()
+       # self.macro.event_data.append(str(ui.return_val))
+       # self.ret_key = ui.return_val
+       # self.listView.addItem(str(self.ret_key))
 
+    def delay_setting(self):
+        Dialog = QtWidgets.QDialog()
+        ui = delay_ui.delay_ui()
+        ui.setupUi(Dialog)
+        Dialog.show()
+        Dialog.exec_()
+        self.macro.event_data.append(ui.delay)
+        self.ret_key = ui.delay
+        self.listView.addItem(str(self.ret_key))
+
+    def record_setting(self):
+        Dialog = QtWidgets.QDialog()
+        ui = record_ui.record_ui()
+        ui.setupUi(Dialog)
+        Dialog.show()
+        Dialog.exec_()
+    #    self.macro.event_data.append(str(ui.return_val))
+    #    self.ret_key = ui.return_val
+    #    self.listView.addItem(str(self.ret_key))
 
 
 if __name__ == "__main__":
