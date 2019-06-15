@@ -94,7 +94,7 @@ class add_normal(object):
         self.macro.event_data.append(str(ui.return_val))
         self.ret_key = ui.return_val
         self.listView.addItem(str(self.ret_key))
-        print(self.macro.event_data)
+      #  print(self.macro.event_data)
         """
     def eventFilter(self, Dialog, event):
             if event.key() == QtCore.Qt.Key_Escape :
@@ -121,9 +121,10 @@ class add_normal(object):
         ui.setupUi(Dialog)
         Dialog.show()
         Dialog.exec_()
+
         self.macro.event_data.append(ui.delay)
         self.ret_key = ui.delay
-        self.listView.addItem(str(self.ret_key))
+        self.listView.addItem(str(self.ret_key+"초"))
 
     def record_setting(self):
         Dialog = QtWidgets.QDialog()
@@ -131,6 +132,8 @@ class add_normal(object):
         ui.setupUi(Dialog)
         Dialog.show()
         Dialog.exec_()
+        self.macro.event_data = ui.Macro.event_data
+        print(self.macro.event_data)
     #    self.macro.event_data.append(str(ui.return_val))
     #    self.ret_key = ui.return_val
     #    self.listView.addItem(str(self.ret_key))

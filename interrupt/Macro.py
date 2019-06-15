@@ -10,7 +10,7 @@ class Macro:
 
     def setRecordEvent(self, event):
         delay = None
-
+        
         if not isinstance(event, mouse.WheelEvent):
             if self.last_time is None:
                 delay = 0
@@ -26,10 +26,10 @@ class Macro:
 
             elif isinstance(event, mouse.MoveEvent):
                 self.addEventData(3, event.x, event.y, delay)
-
+        
     def loadScript(self, fname):
         self.event_data = np.genfromtxt(fname, encoding='ascii', dtype=None, delimiter='/')
-
+    
     def saveScript(self, fname):
         f = open(fname,'wt', encoding='UTF-8')
         text=''
@@ -57,7 +57,7 @@ class Macro:
     def setKeyPress(self, event_name):
         self.setKeyDown(event_name)
         self.setKeyUp(event_name)
-
+    
     def setKeyDown(self, event_name):
         self.addEventData(1, 'down', event_name, 0)
 
@@ -74,9 +74,14 @@ class Macro:
     def setMouseUp(self, event_name):
         self.addEventData(2, 'up', event_name, 0)
 
+<<<<<<< HEAD
 
     def setMouseMove(self, x_pos, y_pos):
         self.addEventData(3, x_pos, y_pos,0)
+=======
+    def setMouseMove(self, x_pos, y_pos):
+        self.addEventData(3, x_pos, y_pos, 0)
+>>>>>>> a56ed9189b65568dbf5cffb89ff41b3a90ba1f53
 
     def setMouseDrag(self, s_x_pos, s_y_pos, e_x_pos, duration=0.1):
         start_pos = [s_x_pos, s_y_pos]
@@ -98,10 +103,14 @@ class Macro:
         temp.append(delay)
         self.event_data.append(temp)
 
+    def delEventData(self, num):
+        if num <= len(self.event_data):
+            del(self.event_data[num-1])
+
     def runMacro(self):
         for (option, event_type, event_name, delay) in self.event_data:
             time.sleep(delay)
-
+            
             if option == 1: # keyboard click
                 keyboard.press(event_name) if event_type == 'down' else keyboard.release(event_name)
             elif option == 2: # mouse click
@@ -112,7 +121,7 @@ class Macro:
                 start_pos = list(event_type)
                 end_pos = list(event_name)
                 mouse.drag(start_pos[0], start_pos[1], end_pos[0], end_pos[1], True, delay)
-
+                
 
 if __name__ == '__main__':
     macro = Macro()
@@ -134,7 +143,7 @@ if __name__ == '__main__':
     macro.setDelay(1.60409)
     macro.setKeyPress('d')
     macro.saveScript('keylog.txt')
-
+    
     macro.setDelay(1)
     macro.setMouseDrag(0, 0, 200, 200)
     macro.saveScript('keylog.txt')

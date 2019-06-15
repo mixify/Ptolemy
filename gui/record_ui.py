@@ -13,14 +13,17 @@ import keyboard,mouse
 
 class record_ui(object):
     tmp = None
+    Macro = Macro.Macro()
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(182, 125)
-        self.buttonBox = QtWidgets.QDialogButtonBox(Dialog)
-        self.buttonBox.setGeometry(QtCore.QRect(10, 90, 161, 32))
-        self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
-        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
-        self.buttonBox.setObjectName("buttonBox")
+        Dialog.resize(250, 150)
+        self.pushButton_3 = QtWidgets.QPushButton(Dialog)
+        self.pushButton_3.setGeometry(QtCore.QRect(40, 120, 75, 23))
+        self.pushButton_3.setObjectName("pushButton_3")
+        self.pushButton_4 = QtWidgets.QPushButton(Dialog)
+        self.pushButton_4.setGeometry(QtCore.QRect(120, 120, 75, 23))
+        self.pushButton_4.setObjectName("pushButton_4")
+        
         self.label = QtWidgets.QLabel(Dialog)
         self.label.setGeometry(QtCore.QRect(20, 30, 56, 12))
         self.label.setObjectName("label")
@@ -35,8 +38,10 @@ class record_ui(object):
         self.pushButton_2.setObjectName("pushButton_2")
 
         self.retranslateUi(Dialog)
-        self.buttonBox.accepted.connect(Dialog.accept)
-        self.buttonBox.rejected.connect(Dialog.reject)
+        self.pushButton_3.clicked.connect(self.startrecording)
+        self.pushButton_3.clicked.connect(Dialog.accept)
+        self.pushButton_4.clicked.connect(self.stoprecording)
+        self.pushButton_4.clicked.connect(Dialog.reject)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
@@ -47,6 +52,10 @@ class record_ui(object):
         self.pushButton.setText(_translate("Dialog", "f1도 됩니다"))
         self.pushButton_2.setText(_translate("Dialog", "f2도 됩니다"))
  
+    def startrecording(self,Dialog):
+        self.Macro.startRecord()
+    def stoprecording(self,Dialog):
+        self.Macro.stopRecord()
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
