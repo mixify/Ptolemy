@@ -38,9 +38,9 @@ class record_ui(object):
         self.pushButton_2.setObjectName("pushButton_2")
 
         self.retranslateUi(Dialog)
-        self.pushButton_3.clicked.connect(self.startrecording)
+        self.pushButton.clicked.connect(self.startrecording)
         self.pushButton_3.clicked.connect(Dialog.accept)
-        self.pushButton_4.clicked.connect(self.stoprecording)
+        self.pushButton_2.clicked.connect(self.stoprecording)
         self.pushButton_4.clicked.connect(Dialog.reject)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
@@ -56,6 +56,8 @@ class record_ui(object):
         self.Macro.startRecord()
     def stoprecording(self,Dialog):
         self.Macro.stopRecord()
+
+
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)

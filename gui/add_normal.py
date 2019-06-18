@@ -61,6 +61,7 @@ class add_normal(object):
         self.pushButton_2.clicked.connect(self.keyboard_setting)
         self.pushButton_3.clicked.connect(self.mouse_setting)
         self.pushButton_4.clicked.connect(self.delay_setting)
+        self.pushButton_5.clicked.connect(self.record_setting)
         self.pushButton_6.clicked.connect(Dialog.reject)
 #        self.pushButton.clicked.connect()
         self.retranslateUi(Dialog)

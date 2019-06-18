@@ -15,9 +15,9 @@ class add_dynamic(object):
         self.pushButton_1 = QtWidgets.QPushButton(self.groupBox)
         self.pushButton_1.setGeometry(QtCore.QRect(110, 30, 75, 30))
         self.pushButton_1.setObjectName("pushButton_1")
-        self.pushButton_2 = QtWidgets.QPushButton(self.groupBox)
-        self.pushButton_2.setGeometry(QtCore.QRect(200, 30, 75, 30))
-        self.pushButton_2.setObjectName("pushButton_2")
+        #self.pushButton_2 = QtWidgets.QPushButton(self.groupBox)
+        #self.pushButton_2.setGeometry(QtCore.QRect(200, 30, 75, 30))
+        #self.pushButton_2.setObjectName("pushButton_2")
         self.label_1 = QtWidgets.QLabel(self.groupBox)
         self.label_1.setGeometry(QtCore.QRect(20, 30, 61, 30))
         self.label_1.setObjectName("label_1")
@@ -32,12 +32,12 @@ class add_dynamic(object):
         self.label_6 = QtWidgets.QLabel(self.groupBox)
         self.label_6.setGeometry(QtCore.QRect(20,565, 61,30))
         self.label_6.setObjectName("label_6")
-        self.pushButton_3 = QtWidgets.QPushButton(self.groupBox)
-        self.pushButton_3.setGeometry(QtCore.QRect(110, 540, 75, 30))
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.pushButton_4 = QtWidgets.QPushButton(self.groupBox)
-        self.pushButton_4.setGeometry(QtCore.QRect(200, 540, 75, 30))
-        self.pushButton_4.setObjectName("pushButton_4")
+        #self.pushButton_3 = QtWidgets.QPushButton(self.groupBox)
+        #self.pushButton_3.setGeometry(QtCore.QRect(110, 540, 75, 30))
+        #self.pushButton_3.setObjectName("pushButton_3")
+        #self.pushButton_4 = QtWidgets.QPushButton(self.groupBox)
+        #self.pushButton_4.setGeometry(QtCore.QRect(200, 540, 75, 30))
+        #self.pushButton_4.setObjectName("pushButton_4")
 
         self.groupBox_1 = QtWidgets.QGroupBox(self.groupBox)
         self.groupBox_1.setGeometry(QtCore.QRect(10, 80, 291, 451))
@@ -74,7 +74,7 @@ class add_dynamic(object):
 
 
         self.pushButton_1.clicked.connect(self.add_start)
-        self.pushButton_3.clicked.connect(self.add_end)
+        #self.pushButton_3.clicked.connect(self.add_end)
         self.pushButton_8.clicked.connect(Dialog.reject)
     
         self.retranslateUi(Dialog)
@@ -85,21 +85,21 @@ class add_dynamic(object):
         Dialog.setWindowTitle(_translate("Dialog", "매크로 만들기"))
         
         self.groupBox.setTitle(_translate("Dialog", "다이나믹 매크로"))
-        self.label_1.setText(_translate("Dialog", "시작매크로"))
-        self.pushButton_1.setText(_translate("Dialog", "만들기"))
-        self.pushButton_2.setText(_translate("Dialog", "불러오기"))
-        self.label_5.setText(_translate("Dialog","파일 미정"))
+        self.label_1.setText(_translate("Dialog", "기본 설정"))
+        self.pushButton_1.setText(_translate("Dialog", "설정"))
+        #self.pushButton_2.setText(_translate("Dialog", "불러오기"))
+        #self.label_5.setText(_translate("Dialog","파일 미정"))
 
-        self.label_2.setText(_translate("Dialog", "종료매크로"))
-        self.pushButton_3.setText(_translate("Dialog", "만들기"))
-        self.pushButton_4.setText(_translate("Dialog", "불러오기"))
-        self.label_6.setText(_translate("Dialog","파일 미정"))
+       # self.label_2.setText(_translate("Dialog", "종료매크로"))
+       # self.pushButton_3.setText(_translate("Dialog", "만들기"))
+       # self.pushButton_4.setText(_translate("Dialog", "불러오기"))
+       # self.label_6.setText(_translate("Dialog","파일 미정"))
 
-        self.groupBox_1.setTitle(_translate("Dialog", "학습요인 설정"))
-        self.label_3.setText(_translate("Dialog", "화면 설정"))
+        self.groupBox_1.setTitle(_translate("Dialog", "학습 설정"))
+        self.label_3.setText(_translate("Dialog", "요인 설정"))
         self.pushButton_5.setText(_translate("Dialog", "설정하기"))
       
-        self.label_4.setText(_translate("Dialog", "키 설정"))
+        self.label_4.setText(_translate("Dialog", "액션 설정"))
         self.pushButton_6.setText(_translate("Dialog", "설정하기"))
 
 

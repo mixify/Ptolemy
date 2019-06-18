@@ -1,5 +1,6 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
 
+from PyQt5 import QtCore, QtGui, QtWidgets
+from PIL from 
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -25,8 +26,6 @@ class Ui_Dialog(object):
         self.pushButton_2.setText(_translate("Dialog", "확인"))
         self.pushButton_3.setText(_translate("Dialog", "취소"))
      
-    def captureing(self,Dialog):
-        
 
 
 if __name__ == "__main__":
